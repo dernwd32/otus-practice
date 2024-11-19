@@ -9,6 +9,7 @@ public class Menu {
     public enum menuChoice {
         ADD("add"), LIST("list"), EXIT("exit");
 
+
         private menuChoice(String menuOption) {
             this.menuOption = menuOption;
         }
