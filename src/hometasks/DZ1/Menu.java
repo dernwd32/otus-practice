@@ -42,7 +42,6 @@ public class Menu {
 
     public static void menuAdd(){
 
-
         Scanner console = new Scanner(System.in);
 
         System.out.println("Выберите животное: \n\t 1. cat \n\t 2. dog \n\t 3. duck");

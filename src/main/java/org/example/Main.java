@@ -13,6 +13,7 @@ public class Main {
             return menuOption;
         }
         private final String menuOption;
+      //  EXIT,ADD,LIST
     }
 
     public static void main(String[] args) {
@@ -23,19 +24,25 @@ public class Main {
         Scanner console = new Scanner(System.in);
         String menuAction = console.nextLine().toLowerCase().trim();
 
-        String tExit = menuChoice.EXIT.getMenuOption();
-        String tAdd = menuChoice.ADD.getMenuOption();
-        String tList = menuChoice.LIST.getMenuOption();
+        final String TEXIT = String.valueOf(menuChoice.EXIT);
+        final String TADD;
+        TADD = String.valueOf(menuChoice.ADD.getMenuOption());
+        final String TLIST = menuChoice.LIST.getMenuOption();
 
+        final String TEST = "123";
+
+        System.out.println("666 : " + TEXIT + TADD + TLIST + menuChoice.EXIT);
+
+//        String tExit = String.valueOf(menuChoice.EXIT);
         switch (menuAction) {
-            case tExit:
+            case TEST:
                 System.out.println("Прощай, смертный");
                 break;
-            case tAdd:
-                System.out.println(" смертный");
+            case TADD:
+                System.out.println(" add смертный");
                 break;
-            case tList:
-                System.out.println("1213Прощай, смертный");
+            case TLIST:
+                System.out.println("list смертный");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + menuAction);
