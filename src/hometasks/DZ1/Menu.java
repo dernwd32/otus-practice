@@ -5,38 +5,43 @@ import java.util.Scanner;
 
 public class Menu {
 
-
-    public enum menuChoice {
-        ADD("add"), LIST("list"), EXIT("exit");
-
-
-        private menuChoice(String menuOption) {
-            this.menuOption = menuOption;
-        }
-        public String getMenuOption() {
-            return menuOption;
-        }
-        private final String menuOption;
-
-    }
-
     public static void menuStart(){
 
         System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
-        Arrays.stream(Main.menuChoice.values()).forEach(x -> System.out.println("\t - " + x.getMenuOption()));
+        Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
         Scanner console = new Scanner(System.in);
-        String menuAction = console.nextLine().toLowerCase().trim();
+        String command = console.nextLine().toUpperCase().trim();
 
-        if (menuAction.equals(String.valueOf(menuChoice.ADD.getMenuOption()))) {
-            menuAdd();
+        // final String tmp = String.valueOf(MenuChoiceEnum.EXIT.getMenuOption());
+        //System.out.println(tmp);
+
+        var action = MenuChoiceEnum.valueOf(command);
+
+        switch (action) {
+            case MenuChoiceEnum.ADD:
+                menuAdd();
+                break;
+            case MenuChoiceEnum.LIST:
+                menuList();
+                break;
+            case MenuChoiceEnum.EXIT:
+                System.out.println("Покедова!");
+                System.exit(0);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + action);
         }
-        if (menuAction.equals(String.valueOf(menuChoice.LIST.getMenuOption()))) {
-            menuList();
-        }
-        if (menuAction.equals(String.valueOf(menuChoice.EXIT.getMenuOption()))) {
-            System.out.println("Покедова!");
-            System.exit(0);
-        }
+
+//        if (menuAction.equals(String.valueOf(menuChoice.ADD.getMenuOption()))) {
+//            menuAdd();
+//        }
+//        if (menuAction.equals(String.valueOf(menuChoice.LIST.getMenuOption()))) {
+//            menuList();
+//        }
+//        if (menuAction.equals(String.valueOf(menuChoice.EXIT.getMenuOption()))) {
+//            System.out.println("Покедова!");
+//            System.exit(0);
+//        }
 //        String menuAction = "";
 //        Scanner console = new Scanner(System.in);
 //        System.out.println("Выберите дальнейшее действие, напечатав одну из команд: \n\t - add \n\t - list\n\t - exit");
