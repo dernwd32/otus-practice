@@ -1,3 +1,4 @@
+package strings;
 
 public class WordUtils {
     public static String reverseWords(String inputText) {

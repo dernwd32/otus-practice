@@ -1,4 +1,6 @@
-package PACKAGE_NAME;
+public interface Flying {
 
-public class Flying {
+    public default void fly() {
+        System.out.println("Я лечу");
+    };
 }

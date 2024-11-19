@@ -3,13 +3,12 @@ package ParsingFiles;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import static ParsingFiles.RegexExtractor.extractIds;
 
 
-public class UstavyGroupy {
+public class ParseUstavyGroupy {
     private static String readFile(String file) throws IOException {
         BufferedReader reader = new BufferedReader( new FileReader(file));
         String         line = null;
@@ -36,8 +35,8 @@ public class UstavyGroupy {
                     groupExpertIds.append("\t'").append(thisid).append("',").append(ls);
             }
 
-       
 
+            if (columns[1].equals("Да"))
             newEntry.append("[" + ls
                     +  "'" + columns[2] + "' => [" + ls
                     + groupTsaukIds + groupExpertIds

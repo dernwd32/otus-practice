@@ -1,4 +1,12 @@
-package PACKAGE_NAME;
+public class Duck extends Animal implements Flying{
 
-public class Duck {
+    public Duck(String name, Integer age, Float weight, String color) {
+        super(name, age, weight, color);
+    }
+
+    @Override
+    public void say() {
+        System.out.println("Кря");
+    };
+
 }

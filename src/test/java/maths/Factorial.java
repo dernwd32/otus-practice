@@ -1,4 +1,4 @@
-package strings;
+package maths;
 
 public class Factorial {
     public static float getFactorial(byte number) {
