@@ -1,37 +1,61 @@
+import org.example.Main;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
 
- //   public enum MenuActions {
-     //   EXIT = "exit";
-//        EXIT("exit"),
-//        ADD("add"),
-//        LIST("list");
 
-   // }
+    public enum menuChoice {
+        ADD("add"), LIST("list"), EXIT("exit");
+
+        private menuChoice(String menuOption) {
+            this.menuOption = menuOption;
+        }
+        public String getMenuOption() {
+            return menuOption;
+        }
+        private final String menuOption;
+
+    }
 
     public static void menuStart(){
 
-        String menuAction = "";
+        System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
+        Arrays.stream(Main.menuChoice.values()).forEach(x -> System.out.println("\t - " + x.getMenuOption()));
         Scanner console = new Scanner(System.in);
-        System.out.println("Выберите дальнейшее действие, напечатав одну из команд: \n\t - add \n\t - list\n\t - exit");
-        menuAction = console.nextLine().toLowerCase().trim();
+        String menuAction = console.nextLine().toLowerCase().trim();
 
-        switch (menuAction) {
-            //case valueOf(MenuActions.EXIT):
-            case "exit":
-                System.out.println("Покедова!");
-                System.exit(0);
-                break;
-            case "add":
-                menuAdd();
-                break;
-            case "list":
-                menuList();
-                break;
-            default:
-                throw new IllegalStateException("Учись писать: " + menuAction);
+        if (menuAction.equals(String.valueOf(menuChoice.ADD.getMenuOption()))) {
+            menuAdd();
         }
+        if (menuAction.equals(String.valueOf(menuChoice.LIST.getMenuOption()))) {
+            menuList();
+        }
+        if (menuAction.equals(String.valueOf(menuChoice.EXIT.getMenuOption()))) {
+            System.out.println("Покедова!");
+            System.exit(0);
+        }
+//        String menuAction = "";
+//        Scanner console = new Scanner(System.in);
+//        System.out.println("Выберите дальнейшее действие, напечатав одну из команд: \n\t - add \n\t - list\n\t - exit");
+//        menuAction = console.nextLine().toLowerCase().trim();
+//
+//        switch (menuAction) {
+//            //case valueOf(MenuActions.EXIT):
+//            case "exit":
+//                System.out.println("Покедова!");
+//                System.exit(0);
+//                break;
+//            case "add":
+//                menuAdd();
+//                break;
+//            case "list":
+//                menuList();
+//                break;
+//            default:
+//                throw new IllegalStateException("Учись писать: " + menuAction);
+//        }
 
     }
 
