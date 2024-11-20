@@ -7,30 +7,35 @@ public class Menu {
 
     public static void menuStart(){
 
-        System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
-        Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
-        Scanner console = new Scanner(System.in);
-        String command = console.nextLine().toUpperCase().trim();
+        boolean showmenu = true;
+        do {
+            System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
+            Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
+            Scanner console = new Scanner(System.in);
+            String command = console.nextLine().toUpperCase().trim();
 
-        // final String tmp = String.valueOf(hometask1.MenuChoiceEnum.EXIT.getMenuOption());
-        //System.out.println(tmp);
+            // final String tmp = String.valueOf(hometask1.MenuChoiceEnum.EXIT.getMenuOption());
+            //System.out.println(tmp);
 
-        var action = MenuChoiceEnum.valueOf(command);
+            var action = MenuChoiceEnum.valueOf(command);
 
-        switch (action) {
-            case MenuChoiceEnum.ADD:
-                menuAdd();
-                break;
-            case MenuChoiceEnum.LIST:
-                menuList();
-                break;
-            case MenuChoiceEnum.EXIT:
-                System.out.println("Покедова!");
-                System.exit(0);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + action);
+            switch (action) {
+                case MenuChoiceEnum.ADD:
+                    menuAdd();
+                    break;
+                case MenuChoiceEnum.LIST:
+                    menuList();
+                    break;
+                case MenuChoiceEnum.EXIT:
+                    System.out.println("Покедова!");
+    //                System.exit(0);
+                    showmenu = false;
+                    break;
+    //            default:
+    //                throw new IllegalStateException("Unexpected value: " + action);
         }
+    }
+    while (showmenu);
 
 //        if (menuAction.equals(String.valueOf(menuChoice.ADD.getMenuOption()))) {
 //            menuAdd();
@@ -66,11 +71,10 @@ public class Menu {
     }
 
     public static void menuList(){
-        Animal.getListAnimals().forEach(x -> {
-            x.say();
-            System.out.println(x.toString());
-        });
-        menuStart();
+        AnimalList.showListAnimals();
+       // AnimalList.countAnimals();
+        System.out.println( AnimalList.countAnimals());
+        //menuStart();
     }
 
     public static void menuAdd(){
@@ -94,30 +98,28 @@ public class Menu {
         if (menuAnimal.equals("cat")) {
             Cat catFromMenu = new Cat(name, intAge, floatWeight, color);
             //hometask1.Animal.listAnimals.add(catFromMenu);
-            Animal.setListAnimals(catFromMenu);
+            AnimalList.setListAnimals(catFromMenu);
             catFromMenu.say();
         }
 
         if (menuAnimal.equals("dog")) {
             Dog dogFromMenu = new Dog(name, intAge, floatWeight, color);
             //hometask1.Animal.listAnimals.add(dogFromMenu);
-            Animal.setListAnimals(dogFromMenu);
+            AnimalList.setListAnimals(dogFromMenu);
             dogFromMenu.say();
         }
 
         if (menuAnimal.equals("duck")) {
             Duck duckFromMenu = new Duck(name, intAge, floatWeight, color);
             //hometask1.Animal.listAnimals.add(duckFromMenu);
-            Animal.setListAnimals(duckFromMenu);
+            AnimalList.setListAnimals(duckFromMenu);
             duckFromMenu.say();
         }
 
-        menuStart();
+      //  menuStart();
 
     }
 
-    private static record valueOf() {
-    }
 }
 
 

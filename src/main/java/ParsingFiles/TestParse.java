@@ -1,5 +1,4 @@
-//package ParsingFiles;
-import ParsingFiles.ParseFile;
+package ParsingFiles;//package ParsingFiles;
 
 import java.io.IOException;
 

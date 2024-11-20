@@ -8,16 +8,6 @@ public class Animal {
     private Float weight;
     private String color;
 
-    private static ArrayList<Animal> listAnimals = new ArrayList<>();
-
-    public static ArrayList<Animal> getListAnimals() {
-        return listAnimals;
-    }
-
-    public static void setListAnimals(Animal animal) {
-        listAnimals.add(animal);
-    }
-
 
     public String getName() {
         return name;
@@ -70,7 +60,7 @@ public class Animal {
         System.out.println("Я ем");
     }
 
-
+    //конструкторы
     public Animal(String name, Integer age, Float weight, String color) {
         this.name = name;
         this.age = age;
