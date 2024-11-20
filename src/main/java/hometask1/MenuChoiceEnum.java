@@ -1,3 +1,5 @@
+package hometask1;
+
 public enum MenuChoiceEnum {
     ADD("add"), LIST("list"), EXIT("изыди");
 

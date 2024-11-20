@@ -37,7 +37,7 @@ public class Lesson3 {
         pup.bark();
 
 
-       // Puppy p00p = new Dog();
+       // Puppy p00p = new hometask1.Dog();
 
     }
 }

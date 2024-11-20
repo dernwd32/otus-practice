@@ -51,7 +51,7 @@ public class ParseVoprosOsnovanie {
             }
         }
         newEntry.append(ls+ls+ "Committee" +ls+ls+ "[" + ls).append(newEntryComm)
-                .append("]," +ls+ls+ "Main" +ls+ls+ "[" + ls).append(newEntryMain)
+                .append("]," +ls+ls+ "hometask1.Main" +ls+ls+ "[" + ls).append(newEntryMain)
                 .append("]," + ls);
         //System.out.println("i="+i);
         return newEntry.toString();

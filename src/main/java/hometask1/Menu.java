@@ -1,4 +1,4 @@
-import org.example.Main;
+package hometask1;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ public class Menu {
         Scanner console = new Scanner(System.in);
         String command = console.nextLine().toUpperCase().trim();
 
-        // final String tmp = String.valueOf(MenuChoiceEnum.EXIT.getMenuOption());
+        // final String tmp = String.valueOf(hometask1.MenuChoiceEnum.EXIT.getMenuOption());
         //System.out.println(tmp);
 
         var action = MenuChoiceEnum.valueOf(command);
@@ -66,7 +66,10 @@ public class Menu {
     }
 
     public static void menuList(){
-        Animal.getListAnimals().forEach(x -> System.out.println(x.toString()));
+        Animal.getListAnimals().forEach(x -> {
+            x.say();
+            System.out.println(x.toString());
+        });
         menuStart();
     }
 
@@ -90,21 +93,21 @@ public class Menu {
 
         if (menuAnimal.equals("cat")) {
             Cat catFromMenu = new Cat(name, intAge, floatWeight, color);
-            //Animal.listAnimals.add(catFromMenu);
+            //hometask1.Animal.listAnimals.add(catFromMenu);
             Animal.setListAnimals(catFromMenu);
             catFromMenu.say();
         }
 
         if (menuAnimal.equals("dog")) {
             Dog dogFromMenu = new Dog(name, intAge, floatWeight, color);
-            //Animal.listAnimals.add(dogFromMenu);
+            //hometask1.Animal.listAnimals.add(dogFromMenu);
             Animal.setListAnimals(dogFromMenu);
             dogFromMenu.say();
         }
 
         if (menuAnimal.equals("duck")) {
             Duck duckFromMenu = new Duck(name, intAge, floatWeight, color);
-            //Animal.listAnimals.add(duckFromMenu);
+            //hometask1.Animal.listAnimals.add(duckFromMenu);
             Animal.setListAnimals(duckFromMenu);
             duckFromMenu.say();
         }

@@ -1,3 +1,5 @@
+package hometask1;
+
 import java.util.ArrayList;
 
 public class Animal {
@@ -6,9 +8,7 @@ public class Animal {
     private Float weight;
     private String color;
 
-    private static ArrayList<Animal> listAnimals = new ArrayList<Animal>();
-
-
+    private static ArrayList<Animal> listAnimals = new ArrayList<>();
 
     public static ArrayList<Animal> getListAnimals() {
         return listAnimals;
@@ -18,7 +18,7 @@ public class Animal {
         listAnimals.add(animal);
     }
 
-    //    //создаём геттеры и сеттеры для полей
+
     public String getName() {
         return name;
     }
@@ -41,7 +41,7 @@ public class Animal {
     }
 
     public void setWeight(Float weight) {
-        assert age >= 0 : "Вес должен быть больше нуля";
+        assert weight >= 0 : "Вес должен быть больше нуля";
         this.weight = weight;
     }
 
@@ -85,32 +85,8 @@ public class Animal {
     @Override
     public String toString() {
         //  StringBuilder newStr = new StringBuilder();
-        String newStr = "";
-
-        //преобразование постфикса возраста
-        int lastDigit = this.age % 10;
-        int lastTwoDigits = this.age % 100;
-        String agePostfix = "";
-        if ( lastDigit == 0 || lastDigit >= 5 || (lastTwoDigits >= 11 && lastTwoDigits <= 14))
-            agePostfix = "лет";
-        else if (lastDigit == 1) agePostfix = "год";
-        else if (lastDigit > 1) agePostfix = "года";
-
-        //убираем ноль после точки в весе
-        String sWeight = "";
-        if (this.weight == this.weight.intValue())
-            sWeight = String.valueOf(this.weight.intValue());
-        else
-            sWeight = this.weight.toString();
-
-
-        newStr = "Привет! меня зовут " + this.name + ", мне " + this.age + " " +
-                agePostfix + ", я вешу - " + sWeight + " кг, мой цвет - " + this.color;
-//        newStr.append("Привет! меня зовут ").append(this.name).append(", мне ").append(this.age).append(" ")
-//                .append(agePostfix).append(", я вешу - ").append(sWeight)
-//                .append(" кг, мой цвет - ").append(this.color);
+        String newStr = "Привет! меня зовут " + this.name + ", мне " + this.age + " " +
+                MiscFuncs.agePostfix(this.age) + ", я вешу - " + MiscFuncs.cutZeroFloat(this.weight) + " кг, мой цвет - " + this.color;
         return newStr;
-
-
     }
 }

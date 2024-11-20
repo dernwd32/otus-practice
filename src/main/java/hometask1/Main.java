@@ -1,12 +1,16 @@
+package hometask1;
+
 public class Main {
     public static void main(String[] args) {
+
+
 
         Menu.menuStart();
 
 
-//        Animal firstAnimal = new Animal();
-//        Animal secondAnimal = new Animal();
-//        Animal thirdAnimal = new Animal();
+//        hometask1.Animal firstAnimal = new hometask1.Animal();
+//        hometask1.Animal secondAnimal = new hometask1.Animal();
+//        hometask1.Animal thirdAnimal = new hometask1.Animal();
 //
 //        firstAnimal.setName("Бобег");
 //        firstAnimal.setAge(111);
@@ -27,9 +31,9 @@ public class Main {
 //        System.out.println(secondAnimal.toString());
 //        System.out.println(thirdAnimal.toString());
 
-      //  Cat catAnimal = new Cat();
-      //  Dog dogAnimal = new Dog();
-     //   Duck duckAnimal = new Duck();
+      //  hometask1.Cat catAnimal = new hometask1.Cat();
+      //  hometask1.Dog dogAnimal = new hometask1.Dog();
+     //   hometask1.Duck duckAnimal = new hometask1.Duck();
 //
 //        catAnimal.say();
 //        dogAnimal.say();

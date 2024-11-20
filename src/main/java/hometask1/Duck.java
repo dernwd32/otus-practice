@@ -1,3 +1,5 @@
+package hometask1;
+
 public class Duck extends Animal implements Flying{
 
     public Duck(String name, Integer age, Float weight, String color) {

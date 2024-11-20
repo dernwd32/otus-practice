@@ -1,3 +1,5 @@
+package hometask1;
+
 public class Cat extends Animal {
 
     public Cat(String name, Integer age, Float weight, String color) {
