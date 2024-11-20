@@ -5,18 +5,18 @@ public class MiscFuncs {
     public static String cutZeroFloat(Float weight) {
         //убираем ноль после точки в целочисленном весе
 
-        String sWeight = "";
+       // String sWeight = "";
         if (weight == weight.intValue())
-            sWeight = String.valueOf(weight.intValue());
+            return String.valueOf(weight.intValue());
         else
-            sWeight = weight.toString();
+            return weight.toString();
 
 //        if (weight % 1.0 != 0)
 //            sWeight = String.format("%s", weight);
 //        else
 //            sWeight = String.format("%.0f", weight);
 
-        return sWeight;
+      //  return sWeight;
     }
 
     public static String agePostfix(Integer age) {
