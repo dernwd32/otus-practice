@@ -12,12 +12,12 @@ public class Menu {
             System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
             Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
             Scanner console = new Scanner(System.in);
-            String command = console.nextLine().toUpperCase().trim();
+            String command = console.nextLine().toLowerCase().trim();
 
             // final String tmp = String.valueOf(hometask1.MenuChoiceEnum.EXIT.getMenuOption());
             //System.out.println(tmp);
 
-            var action = MenuChoiceEnum.valueOf(command);
+            var action = MenuChoiceEnum.allOptions(command);
 
             switch (action) {
                 case MenuChoiceEnum.ADD:
