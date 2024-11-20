@@ -19,6 +19,7 @@ public enum MenuChoiceEnum {
             case "add":
             case "создать":
             case "добавить":
+            case "сотворить чудо":
             case "1":
                 return MenuChoiceEnum.ADD;
             case "list":
