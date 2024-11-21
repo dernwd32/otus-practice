@@ -15,7 +15,7 @@ public class AnimalList {
     }
 
     public static void showListAnimals() {
-        AnimalList.getListAnimals().forEach(x -> {
+        listAnimals.forEach(x -> {
             x.say();
             System.out.println(x.toString() + "\n");
         });

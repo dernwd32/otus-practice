@@ -39,3 +39,5 @@ build/
 .DS_Store
 /.idea/
 /src/main/java/org/example/
+/src/test/
+/src/main/java/animals/
