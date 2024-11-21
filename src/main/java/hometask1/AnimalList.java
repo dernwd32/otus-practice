@@ -40,7 +40,7 @@ public class AnimalList {
                 case "Duck": ducks++; break;
             }
         }
-        return "\nВсего животных: " + (cats+dogs+ducks) + "\nКошек: " + cats  + "\nСобак: " + dogs + "\nУток: " + ducks + "\n";
+        return "\nВсего животных: " + (listAnimals.size()) + " | Кошек: " + cats  + " | Собак: " + dogs + " | Уток: " + ducks + "\n";
 
     }
 }

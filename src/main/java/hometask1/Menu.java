@@ -12,6 +12,7 @@ public class Menu {
 
         while (showmenu) {
             try {
+                System.out.println( AnimalList.countAnimals());
                 System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
                 Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
                 Scanner console = new Scanner(System.in);
@@ -79,7 +80,7 @@ public class Menu {
     public static void menuList(){
         AnimalList.showListAnimals();
        // AnimalList.countAnimals();
-        System.out.println( AnimalList.countAnimals());
+
         //menuStart();
     }
 
@@ -87,15 +88,24 @@ public class Menu {
 
         Scanner console = new Scanner(System.in);
 
+//        String menuAnimal = "";
+//        boolean correctAnimal = false;
+//        while (!correctAnimal) {
+//            System.out.println("Выберите животное: \n\t 1. cat \n\t 2. dog \n\t 3. duck");
+//            menuAnimal = console.nextLine().toLowerCase().trim();
+//            if (!List.of("cat", "dog", "duck").contains(menuAnimal)) {
+//               System.out.println("Неправильно введен тип животного: " + menuAnimal);
+//            }
+//            else correctAnimal = true;
+//        }
+
         String menuAnimal = "";
         boolean correctAnimal = false;
         while (!correctAnimal) {
             System.out.println("Выберите животное: \n\t 1. cat \n\t 2. dog \n\t 3. duck");
             menuAnimal = console.nextLine().toLowerCase().trim();
-            if (!List.of("cat", "dog", "duck").contains(menuAnimal)) {
-               System.out.println("Неправильно введен тип животного: " + menuAnimal);
-            }
-            else correctAnimal = true;
+            correctAnimal = List.of("cat", "dog", "duck").contains(menuAnimal);
+            if (!correctAnimal) System.out.println("Неправильно введен тип животного: " + menuAnimal);
         }
 
         System.out.println("Введите имя животного");
