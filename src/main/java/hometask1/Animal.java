@@ -76,7 +76,8 @@ public class Animal {
     public String toString() {
         //  StringBuilder newStr = new StringBuilder();
         String newStr = "Привет! меня зовут " + this.name + ", мне " + this.age + " " +
-                MiscFuncs.agePostfix(this.age) + ", я вешу - " + MiscFuncs.cutZeroFloat(this.weight) + " кг, мой цвет - " + this.color;
+                MiscFuncs.agePostfix(this.age) + ", я вешу - " + MiscFuncs.cutZeroFloat(this.weight)
+                + " кг, мой цвет - " + this.color;
         return newStr;
     }
 }

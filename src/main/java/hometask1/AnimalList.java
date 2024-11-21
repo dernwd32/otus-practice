@@ -23,7 +23,7 @@ public class AnimalList {
         });
     }
 
-    public static String countAnimals() {
+    public static StringBuilder countAnimals() {
 
         Map<String, Integer> animalTypes = new HashMap<>();
 
@@ -37,9 +37,10 @@ public class AnimalList {
                         animalTypes.put(thisClass, animalTypes.get(thisClass) + 1);
                 }
         );
-
-        return "\n| Всего животных: " + (listAnimals.size()) + " | Кошек: " + animalTypes.get("Cat")  +
-                " | Собак: " + animalTypes.get("Dog") + " | Уток: " + animalTypes.get("Duck") + " |\n";
+        //обеспечиваем масштабируемость - теперь  можно добавлять новые дочерние классы, счетчик их соберёт налету
+        StringBuilder countStr = new StringBuilder("\n| Всего животных: " + (listAnimals.size()) + " | ");
+        animalTypes.forEach((key, value) -> countStr.append(key).append(": ").append(value).append(" | "));
+        return countStr.append("\n");
 
 //        ArrayList<String> animalTypes = new ArrayList<>();
 //        listAnimals.forEach(x -> animalTypes.add(x.getClass().toString()) );

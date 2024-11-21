@@ -12,8 +12,8 @@ public class Menu {
 
         while (showmenu) {
             try {
-                System.out.println( AnimalList.countAnimals());
-                System.out.println("Выберите дальнейшее действие, напечатав одну из команд: ");
+                System.out.println( AnimalList.countAnimals()
+                        + "Выберите дальнейшее действие, напечатав одну из команд: ");
                 Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
                 Scanner console = new Scanner(System.in);
                 String command = console.nextLine().toLowerCase().trim();
