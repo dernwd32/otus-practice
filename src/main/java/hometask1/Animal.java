@@ -1,6 +1,5 @@
 package hometask1;
 
-import java.util.ArrayList;
 
 public class Animal {
     private String name;
@@ -76,5 +75,10 @@ public class Animal {
         return "Привет! меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s"
                 .formatted(this.name, this.age, MiscFuncs.agePostfix(this.age),
                         MiscFuncs.cutZeroFloat(this.weight), this.color);
+    }
+
+    public static String getAnimalClass(Animal animal){
+        String[] elems = animal.getClass().toString().split("\\.");
+        return elems[elems.length-1];
     }
 }

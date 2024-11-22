@@ -19,7 +19,8 @@ public class AnimalList {
     public static void showListAnimals() {
         if (listAnimals.isEmpty()) System.out.println("Список животных пуст.");
         listAnimals.forEach(x -> {
-            x.say();
+            //x.say();
+            System.out.print( Animal.getAnimalClass(x) + ": ");
             System.out.println(x.toString() + "\n");
         });
     }
@@ -30,8 +31,7 @@ public class AnimalList {
 
         listAnimals.forEach(
                 x -> {
-                    String[] elems = x.getClass().toString().split("\\.");
-                    String thisClass =  elems[elems.length-1];
+                    String thisClass = Animal.getAnimalClass(x);
                     if(!animalTypes.containsKey(thisClass))
                         animalTypes.put(thisClass, 1);
                     else
