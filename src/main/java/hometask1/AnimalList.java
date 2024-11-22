@@ -17,6 +17,7 @@ public class AnimalList {
     }
 
     public static void showListAnimals() {
+        if (listAnimals.isEmpty()) System.out.println("Список животных пуст.");
         listAnimals.forEach(x -> {
             x.say();
             System.out.println(x.toString() + "\n");
