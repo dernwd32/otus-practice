@@ -77,8 +77,9 @@ public class Animal {
                         MiscFuncs.cutZeroFloat(weight), color);
     }
 
-    public static String getAnimalClass(Animal animal){
-        String[] elems = animal.getClass().toString().split("\\.");
-        return elems[elems.length-1];
-    }
+//    public static String getAnimalClass(Animal animal){
+//        String[] elems = animal.getClass().toString().split("\\.");
+//        return elems[elems.length-1];
+//          return animal.getClass().getSimpleName();
+//    }
 }
