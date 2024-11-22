@@ -73,8 +73,8 @@ public class Animal {
     public String toString() {
         //  StringBuilder newStr = new StringBuilder();
         return "Привет! меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s"
-                .formatted(this.name, this.age, MiscFuncs.agePostfix(this.age),
-                        MiscFuncs.cutZeroFloat(this.weight), this.color);
+                .formatted(name, age, MiscFuncs.agePostfix(age),
+                        MiscFuncs.cutZeroFloat(weight), color);
     }
 
     public static String getAnimalClass(Animal animal){
