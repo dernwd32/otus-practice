@@ -22,7 +22,6 @@ public class Animal {
     }
 
     public void setAge(Integer age) {
-        assert age > 0 : "Возраст не может быть меньше нуля";
         this.age = age;
     }
 
@@ -31,7 +30,6 @@ public class Animal {
     }
 
     public void setWeight(Float weight) {
-        assert weight >= 0 : "Вес должен быть больше нуля";
         this.weight = weight;
     }
 
@@ -75,9 +73,8 @@ public class Animal {
     @Override
     public String toString() {
         //  StringBuilder newStr = new StringBuilder();
-        String newStr = "Привет! меня зовут " + this.name + ", мне " + this.age + " " +
-                MiscFuncs.agePostfix(this.age) + ", я вешу - " + MiscFuncs.cutZeroFloat(this.weight)
-                + " кг, мой цвет - " + this.color;
-        return newStr;
+        return "Привет! меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s"
+                .formatted(this.name, this.age, MiscFuncs.agePostfix(this.age),
+                        MiscFuncs.cutZeroFloat(this.weight), this.color);
     }
 }

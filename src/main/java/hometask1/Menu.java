@@ -161,7 +161,7 @@ public class Menu {
             case "cat" -> new Cat(name, intAge, floatWeight, color);
             case "dog" -> new Dog(name, intAge, floatWeight, color);
             case "duck" -> new Duck(name, intAge, floatWeight, color);
-            default -> new Animal(name, intAge, floatWeight, color); //недостижимо, ввиду наличия проверки correctAnimal
+            default -> new Animal(); //недостижимо, ввиду наличия проверки correctAnimal
         };
         AnimalList.setListAnimals(createdAnimal);
         createdAnimal.say();
