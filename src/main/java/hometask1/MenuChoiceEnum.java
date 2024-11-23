@@ -15,26 +15,11 @@ public enum MenuChoiceEnum {
     EXIT;
 
     public static MenuChoiceEnum allOptions(String string) {
-        switch (string.toLowerCase().trim()) {
-            case "add":
-            case "создать":
-            case "добавить":
-            case "сотворить чудо":
-            case "1":
-                return MenuChoiceEnum.ADD;
-            case "list":
-            case "список":
-            case "показать":
-            case "2":
-                return MenuChoiceEnum.LIST;
-            case "exit":
-            case "выход":
-            case "изыди":
-            case "3":
-                return MenuChoiceEnum.EXIT;
-            default:
-                return null;
-
-        }
+        return switch (string.toLowerCase().trim()) {
+            case "add", "создать", "добавить", "сотворить чудо", "1" -> MenuChoiceEnum.ADD;
+            case "list", "список", "показать", "2" -> MenuChoiceEnum.LIST;
+            case "exit", "выход", "изыди", "3" -> MenuChoiceEnum.EXIT;
+            default -> null;
+        };
     }
 }

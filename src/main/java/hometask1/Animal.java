@@ -115,7 +115,7 @@ public class Animal {
         @Override
         public void say() {
             System.out.println("Кря");
-        };
+        }
 
     }
     /*Если перетащить дочерние классы животных внутрь родительского Animal,
@@ -124,12 +124,12 @@ public class Animal {
     добавление их объектов в AnimalList.
     * изучить вопрос - как сделать такое же с внешними дочерними.java
      */
-    public static Set getChildClasses() {
+    public static Set<String> getChildClasses() {
        // System.out.println("???");
         Class<?>[] classes = Animal.class.getClasses();
-        Set childs = new HashSet();
-        Arrays.stream(classes).forEach(x -> childs.add(x.getSimpleName()));
-        return childs;
+        Set<String> children = new HashSet<>();
+        Arrays.stream(classes).forEach(x -> children.add(x.getSimpleName()));
+        return children;
     }
 
 

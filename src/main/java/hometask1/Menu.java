@@ -1,10 +1,6 @@
 package hometask1;
 
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Set;
-
-import static java.lang.Class.forName;
+import java.util.*;
 
 public class Menu {
 
@@ -26,17 +22,12 @@ public class Menu {
                 var action = MenuChoiceEnum.allOptions(command);
 
                 switch (action) {
-                    case MenuChoiceEnum.ADD:
-                        menuAdd();
-                        break;
-                    case MenuChoiceEnum.LIST:
-                        menuList();
-                        break;
-                    case MenuChoiceEnum.EXIT:
+                    case MenuChoiceEnum.ADD -> menuAdd();
+                    case MenuChoiceEnum.LIST -> menuList();
+                    case MenuChoiceEnum.EXIT -> {
                         System.out.println("Покедова!");
-        //                System.exit(0);
                         showmenu = false;
-                        break;
+                    }
                 }
 
             } catch (NullPointerException e) {
@@ -101,40 +92,37 @@ public class Menu {
 //            else correctAnimal = true;
 //        }
 
-        String menuAnimal = "";
-        boolean correctAnimal = false;
-        while (!correctAnimal) {
-            Set childs = Animal.getChildClasses();
+        String menuAnimal;
+        for(;;){
+            Set<?> childs = Animal.getChildClasses();
             System.out.println("Выберите животное: ");
             childs.forEach(x -> System.out.println("\t - " + x));
             menuAnimal = MiscFuncs.firstCapitalize(console.nextLine().trim());
-            correctAnimal = childs.contains(menuAnimal);
-            if (!correctAnimal) System.out.println("Неправильно введен тип животного: " + menuAnimal);
+            if (!childs.contains(menuAnimal)) System.out.println("Неправильно введен тип животного: " + menuAnimal);
+            else break;
         }
 
         System.out.println("Введите имя животного");
         String name = console.nextLine().toLowerCase().trim();
 
-        Integer intAge = 0;
-        boolean correctAge = false;
-        while (!correctAge){
+        Integer intAge;
+        for(;;){
             System.out.println("Введите возраст животного");
              try {
                 intAge = Integer.valueOf(console.nextLine().trim());
-                correctAge = true;
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Неправильно введен возраст животного." +
                         " Возраст должен быть целым числом. ");
             }
         }
 
-        Float floatWeight = 0F;
-        boolean correctWeight = false;
-        while (!correctWeight){
+        Float floatWeight;
+        for(;;){
             System.out.println("Введите вес животного");
             try {
                 floatWeight = Float.valueOf(console.nextLine().trim());
-                correctWeight = true;
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Неправильно введен вес животного." +
                         " Вес должен быть числом (с плавающей точкой). ");
