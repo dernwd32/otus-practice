@@ -1,8 +1,10 @@
 package hometask1;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+
+import static java.lang.Class.forName;
 
 public class Menu {
 
@@ -102,9 +104,12 @@ public class Menu {
         String menuAnimal = "";
         boolean correctAnimal = false;
         while (!correctAnimal) {
-            System.out.println("Выберите животное: \n\t 1. cat \n\t 2. dog \n\t 3. duck");
-            menuAnimal = console.nextLine().toLowerCase().trim();
-            correctAnimal = List.of("cat", "dog", "duck").contains(menuAnimal);
+            Set childs = Animal.getChildClasses();
+            System.out.println("Выберите животное: ");
+            childs.forEach(x -> System.out.println("\t - " + x));
+            menuAnimal = console.nextLine().trim();
+            menuAnimal = menuAnimal.substring(0,1).toUpperCase() + menuAnimal.substring(1);
+            correctAnimal = childs.contains(menuAnimal);
             if (!correctAnimal) System.out.println("Неправильно введен тип животного: " + menuAnimal);
         }
 
@@ -157,14 +162,25 @@ public class Menu {
 //            floatWeight = 0F;
 //        }
 
-        Animal createdAnimal = switch (menuAnimal) {
-            case "cat" -> new Cat(name, intAge, floatWeight, color);
-            case "dog" -> new Dog(name, intAge, floatWeight, color);
-            case "duck" -> new Duck(name, intAge, floatWeight, color);
-            default -> new Animal(); //недостижимо, ввиду наличия проверки correctAnimal
-        };
-        AnimalList.setListAnimals(createdAnimal);
-        createdAnimal.say();
+//        Animal createdAnimal = switch (menuAnimal) {
+//            case "Cat" -> new Animal.Cat(name, intAge, floatWeight, color);
+//            case "Dog" -> new Animal.Dog(name, intAge, floatWeight, color);
+//            case "Duck" -> new Animal.Duck(name, intAge, floatWeight, color);
+//            default -> new Animal(); //недостижимо, ввиду наличия проверки correctAnimal
+//        };
+//        Class t = Class.forName("java.lang.Thread")
+//        A call to forName("X") causes the class named X to be initialized.
+
+        try {
+          //  Class<?> ChildAnimal = Class.forName("hometask1.Animal$Dog");
+            Class<?> ChildAnimal = Class.forName("hometask1.Animal$" + menuAnimal);
+            Animal createdAnimal = new ChildAnimal(name, intAge, floatWeight, color);
+            AnimalList.setListAnimals(createdAnimal);
+            createdAnimal.say();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
 /*
         if (menuAnimal.equals("cat")) {
             Cat catFromMenu = new Cat(name, intAge, floatWeight, color);

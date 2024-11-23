@@ -2,6 +2,8 @@ package hometask1;
 
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Animal {
     private String name;
@@ -77,6 +79,55 @@ public class Animal {
         return "Привет! меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s"
                 .formatted(name, age, MiscFuncs.agePostfix(age),
                         MiscFuncs.cutZeroFloat(weight), color);
+    }
+
+    public static class Cat extends Animal {
+
+        public Cat(String name, Integer age, Float weight, String color) {
+            super(name, age, weight, color);
+        }
+
+        @Override
+        public void say() {
+            System.out.println("Мяу");
+        }
+
+    }
+
+    public static class Dog extends Animal {
+
+        public Dog (String name, Integer age, Float weight, String color) {
+            super(name, age, weight, color);
+        }
+
+        @Override
+        public void say() {
+            System.out.println("Гав");
+        }
+
+    }
+    public static class Duck extends Animal implements Flying{
+
+        public Duck(String name, Integer age, Float weight, String color) {
+            super(name, age, weight, color);
+        }
+
+        @Override
+        public void say() {
+            System.out.println("Кря");
+        };
+
+    }
+
+    public static Set getChildClasses() {
+       // System.out.println("???");
+        Class<?>[] classes = Animal.class.getClasses();
+        Set childs = new HashSet();
+        Arrays.stream(classes).forEach(x -> {
+          //  System.out.println(x.getSimpleName());
+            childs.add(x.getSimpleName());
+        });
+        return childs;
     }
 
     /*Если перетащить дочерние классы животных внутрь родительского Animal,
