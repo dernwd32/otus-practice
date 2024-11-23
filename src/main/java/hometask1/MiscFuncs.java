@@ -27,4 +27,8 @@ public class MiscFuncs {
         else return "года";
         // else if (lastDigit > 1) return "года";
     }
+
+    public static String firstCapitalize(String str) {
+        return str.substring(0,1).toUpperCase() + str.substring(1);
+    }
 }

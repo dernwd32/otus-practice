@@ -107,8 +107,7 @@ public class Menu {
             Set childs = Animal.getChildClasses();
             System.out.println("Выберите животное: ");
             childs.forEach(x -> System.out.println("\t - " + x));
-            menuAnimal = console.nextLine().trim();
-            menuAnimal = menuAnimal.substring(0,1).toUpperCase() + menuAnimal.substring(1);
+            menuAnimal = MiscFuncs.firstCapitalize(console.nextLine().trim());
             correctAnimal = childs.contains(menuAnimal);
             if (!correctAnimal) System.out.println("Неправильно введен тип животного: " + menuAnimal);
         }
@@ -172,14 +171,27 @@ public class Menu {
 //        A call to forName("X") causes the class named X to be initialized.
 
         try {
-          //  Class<?> ChildAnimal = Class.forName("hometask1.Animal$Dog");
-            Class<?> ChildAnimal = Class.forName("hometask1.Animal$" + menuAnimal);
-            Animal createdAnimal = new ChildAnimal(name, intAge, floatWeight, color);
+            // Динамическая загрузка класса по имени
+            Class<?> childAnimalClass = Class.forName("hometask1.Animal$" + menuAnimal);
+
+            // вызываем подходящий конструктор с параметрами, присваиваем его переменной constructor
+            var constructor = childAnimalClass.getConstructor(String.class, Integer.class, Float.class, String.class);
+
+            // Создание экземпляра с передачей параметров в вызванный конструктор. (Animal) - приведение к типу.
+            // IDEA называет "Cast expression"
+            Animal createdAnimal = (Animal) constructor.newInstance(name, intAge, floatWeight, color);
+
             AnimalList.setListAnimals(createdAnimal);
             createdAnimal.say();
+
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Класс не найден: " + menuAnimal, e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("Не найден подходящий конструктор для класса: " + menuAnimal, e);
+        } catch (Exception e) {
+            throw new RuntimeException("Ошибка при создании экземпляра класса: " + menuAnimal, e);
         }
+
 
 /*
         if (menuAnimal.equals("cat")) {
