@@ -173,12 +173,10 @@ public class Menu {
         try {
             // Динамическая загрузка класса по имени
             Class<?> childAnimalClass = Class.forName("hometask1.Animal$" + menuAnimal);
-
-            // вызываем подходящий конструктор с параметрами, присваиваем его переменной constructor
+            // вызываем через метод getConstructor подходящий конструктор с параметрами, присваиваем его переменной constructor
             var constructor = childAnimalClass.getConstructor(String.class, Integer.class, Float.class, String.class);
-
-            // Создание экземпляра с передачей параметров в вызванный конструктор. (Animal) - приведение к типу.
-            // IDEA называет "Cast expression"
+            // Создание экземпляра через метод newInstance с передачей параметров в вызванный конструктор.
+            // (Animal) - приведение к типу, IDEA называет "Cast expression"
             Animal createdAnimal = (Animal) constructor.newInstance(name, intAge, floatWeight, color);
 
             AnimalList.setListAnimals(createdAnimal);
