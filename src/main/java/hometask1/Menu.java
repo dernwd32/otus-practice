@@ -12,7 +12,8 @@ public class Menu {
             try {
                 System.out.println( AnimalList.countAnimals()
                         + "Выберите дальнейшее действие, напечатав одну из команд: ");
-                Arrays.stream(MenuChoiceEnum.values()).forEach(x -> System.out.println("\t - " + x.toString().toLowerCase()));
+                Arrays.stream(MenuChoiceEnum.values()).forEach(
+                        x -> System.out.println("\t"+(x.ordinal() + 1) + " - " + x.toString().toLowerCase()));
                 Scanner console = new Scanner(System.in);
                 String command = console.nextLine().toLowerCase().trim();
 
@@ -94,12 +95,15 @@ public class Menu {
 
         String menuAnimal;
         for(;;){
-            Set<?> childs = Animal.getChildClasses();
+            Set<?> children = Animal.getChildClasses();
             System.out.println("Выберите животное: ");
-            childs.forEach(x -> System.out.println("\t - " + x));
+            children.forEach(x -> System.out.println("\t - " + x));
             menuAnimal = MiscFuncs.firstCapitalize(console.nextLine().trim());
-            if (!childs.contains(menuAnimal)) System.out.println("Неправильно введен тип животного: " + menuAnimal);
-            else break;
+            if (!children.contains(menuAnimal)) System.out.println("Неправильно введен тип животного: " + menuAnimal);
+            else {
+                System.out.println("Животное типа " + menuAnimal + " успешно... зачато.");
+                break;
+                }
         }
 
         System.out.println("Введите имя животного");
@@ -168,6 +172,7 @@ public class Menu {
             Animal createdAnimal = (Animal) constructor.newInstance(name, intAge, floatWeight, color);
 
             AnimalList.setListAnimals(createdAnimal);
+            System.out.println("Животное типа " + menuAnimal + " успешно порождено. И сказало оно:");
             createdAnimal.say();
 
         } catch (ClassNotFoundException e) {
