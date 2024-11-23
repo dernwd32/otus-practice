@@ -1,6 +1,8 @@
 package hometask1;
 
 
+import java.util.Arrays;
+
 public class Animal {
     private String name;
     private Integer age;
@@ -76,6 +78,18 @@ public class Animal {
                 .formatted(name, age, MiscFuncs.agePostfix(age),
                         MiscFuncs.cutZeroFloat(weight), color);
     }
+
+    /*Если перетащить дочерние классы животных внутрь родительского Animal,
+    то вот этот код позволит налету их имена в массив. Как следствие -
+    налету генерировать меню выбора животных и ...возможно, даже создание и
+    добавление их объектов в AnimalList
+
+                  System.out.println("???");
+                  Class<?>[] classes = Animal.class.getClasses();
+                  Arrays.stream(classes)
+                       .forEach(x -> System.out.println(x.getSimpleName()));
+     */
+
 
 //    public static String getAnimalClass(Animal animal){
 //        String[] elems = animal.getClass().toString().split("\\.");
