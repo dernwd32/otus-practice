@@ -118,33 +118,20 @@ public class Animal {
         };
 
     }
-
+    /*Если перетащить дочерние классы животных внутрь родительского Animal,
+    то вот этот код позволит налету их имена собирать. Как следствие -
+    налету генерировать меню выбора животных и даже создание и
+    добавление их объектов в AnimalList.
+    * изучить вопрос - как сделать такое же с внешними дочерними.java
+     */
     public static Set getChildClasses() {
        // System.out.println("???");
         Class<?>[] classes = Animal.class.getClasses();
         Set childs = new HashSet();
-        Arrays.stream(classes).forEach(x -> {
-          //  System.out.println(x.getSimpleName());
-            childs.add(x.getSimpleName());
-        });
+        Arrays.stream(classes).forEach(x -> childs.add(x.getSimpleName()));
         return childs;
     }
 
-    /*Если перетащить дочерние классы животных внутрь родительского Animal,
-    то вот этот код позволит налету их имена в массив. Как следствие -
-    налету генерировать меню выбора животных и ...возможно, даже создание и
-    добавление их объектов в AnimalList
-
-                  System.out.println("???");
-                  Class<?>[] classes = Animal.class.getClasses();
-                  Arrays.stream(classes)
-                       .forEach(x -> System.out.println(x.getSimpleName()));
-     */
 
 
-//    public static String getAnimalClass(Animal animal){
-//        String[] elems = animal.getClass().toString().split("\\.");
-//        return elems[elems.length-1];
-//          return animal.getClass().getSimpleName();
-//    }
 }

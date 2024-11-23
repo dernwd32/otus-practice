@@ -1,4 +1,4 @@
-package hometask1;
+//package hometask1;
 //
 //public class Dog extends Animal {
 //
