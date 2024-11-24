@@ -6,11 +6,6 @@
 
 ### other ###
 target/
-/src/main/java/org/example/
-/src/test/
-/src/main/java/animals/
 /pom.xml
-/src/main/java/arrays/
-/src/main/java/maths/
-/src/main/java/ParsingFiles/
-/src/main/java/strings/
+/src/main/resources/
+/out/
