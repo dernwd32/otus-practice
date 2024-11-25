@@ -6,6 +6,5 @@
 
 ### other ###
 target/
-/pom.xml
 /src/main/resources/
 /out/
