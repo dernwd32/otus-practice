@@ -20,9 +20,8 @@ public class Menu {
                 // final String tmp = String.valueOf(hometask1.MenuChoiceEnum.EXIT.getMenuOption());
                 //System.out.println(tmp);
 
-                var action = MenuChoiceEnum.allOptions(command);
 
-                switch (action) {
+                switch (MenuChoiceEnum.allOptions(command)) {
                     case MenuChoiceEnum.ADD -> menuAdd();
                     case MenuChoiceEnum.LIST -> menuList();
                     case MenuChoiceEnum.EXIT -> {
