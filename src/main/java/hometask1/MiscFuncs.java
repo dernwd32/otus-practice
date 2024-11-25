@@ -2,7 +2,7 @@ package hometask1;
 
 public class MiscFuncs {
 
-    public static String cutZeroFloat(Float weight) {
+    static String cutZeroFloat(Float weight) {
         //убираем ноль после точки в целочисленном весе
 
        // String sWeight = "";
@@ -19,7 +19,7 @@ public class MiscFuncs {
       //  return sWeight;
     }
 
-    public static String agePostfix(Integer age) {
+    static String agePostfix(Integer age) {
         int lastDigit = age % 10;
         int lastTwoDigits = age % 100;
         if ( lastDigit == 0 || lastDigit >= 5 || (lastTwoDigits >= 11 && lastTwoDigits <= 14))  return "лет";
@@ -28,7 +28,7 @@ public class MiscFuncs {
         // else if (lastDigit > 1) return "года";
     }
 
-    public static String firstCapitalize(String str) {
+    static String firstCapitalize(String str) {
         return str.substring(0,1).toUpperCase() + str.substring(1);
     }
 }

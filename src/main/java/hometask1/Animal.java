@@ -5,12 +5,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Animal {
+public class Animal extends Ancestor{
     private String name;
     private Integer age;
     private Float weight;
     private String color;
-
 
     public String getName() {
         return name;
@@ -44,22 +43,12 @@ public class Animal {
         this.color = color;
     }
 
-    //создаём пользовательские методы класса
+    //имплементируем методы абстрактного класса
+    @Override
     public void say() {
         System.out.println("Я говорю");
     }
 
-    public void go() {
-        System.out.println("Я иду");
-    }
-
-    public void drink() {
-        System.out.println("Я пью");
-    }
-
-    public void eat() {
-        System.out.println("Я ем");
-    }
 
     //конструкторы
     public Animal(String name, Integer age, Float weight, String color) {
