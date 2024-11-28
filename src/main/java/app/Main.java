@@ -46,7 +46,6 @@ public class Main {
                         System.out.println("Покедова!");
                         showmenu = false;
                     }
-                    // default -> System.out.println(" ");
                 }
 
             } catch (IllegalStateException e) {
