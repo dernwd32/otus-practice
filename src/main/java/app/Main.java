@@ -13,14 +13,16 @@ import java.util.Scanner;
 
 public class Main {
 
+
     public static void main(String[] args) {
 
-        AnimalList newAnimalList = new AnimalList();
+        //создаем список животных
+        AnimalList listAnimals = new AnimalList();
 
         boolean showmenu = true;
         while (showmenu) {
             try {
-                System.out.println(newAnimalList.countAnimals()
+                System.out.println(listAnimals.countAnimals()
                         + "Выберите дальнейшее действие, напечатав одну из команд: ");
                 Arrays.stream(MainMenuData.values()).forEach(
                         menuChoice -> System.out.println("\t" + (menuChoice.ordinal() + 1)
@@ -31,8 +33,15 @@ public class Main {
 
                 var action = MainMenuData.allOptions(command);
                 switch (action) {
-                    case MainMenuData.ADD -> menuAdd();
-                    case MainMenuData.LIST -> newAnimalList.printListAnimals();
+                    case MainMenuData.ADD -> {
+                        //вызываем метод, возвращающий созданное по введённым параметрам животное
+                        AbsAnimal createdAnimal = inputAnimal();
+                        //добавляем созданное животное в список
+                        listAnimals.setListAnimals(createdAnimal);
+                        System.out.print("Животное типа " + createdAnimal.getClass().getSimpleName() + " успешно порождено. И сказало оно: \n -- ");
+                        createdAnimal.say();
+                    }
+                    case MainMenuData.LIST -> listAnimals.printListAnimals();
                     case MainMenuData.EXIT -> {
                         System.out.println("Покедова!");
                         showmenu = false;
@@ -48,7 +57,9 @@ public class Main {
     }
 
 
-    static void menuAdd(){
+    //метод обрабатывает пользовательский ввод параметров животного и возвращает созданное животное в main()
+    static AbsAnimal inputAnimal(){
+
             Scanner console = new Scanner(System.in);
             String menuAnimal;
             Funcs miscFuncs = new Funcs();
@@ -75,9 +86,9 @@ public class Main {
             for(;;) {
                 System.out.println("Введите имя животного");
                 name = console.nextLine().trim();
-                if (name.matches("^[А-яЁёA-z \\-\\d]+$")) break;
-                else System.out.println("Имя может содержать только буквы русского и английского " +
-                        "алфавитов, цифры, пробел и дефис.");
+                if (name.matches("^[A-z \\-\\d]{2,30}|[А-яЁё \\-\\d]{2,30}$")) break;
+                else System.out.println("Имя может содержать только буквы русского или(!) английского " +
+                        "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов.");
             }
 
             int intAge;
@@ -113,14 +124,11 @@ public class Main {
                 if (color.matches("^#[a-fA-F0-9]{6}$") ) break;
             }
 
-            //создаём экземпляр и пихаем его в listAnimals. Try-Catch по специально созданному исключению
+            //создаём экземпляр и отправляем его обратно в main() в listAnimals. Try-Catch по специально созданному исключению
             try {
-                AnimalList newAnimalList = new AnimalList();
                 AbsAnimal createdAnimal  = FactoryAnimal
                         .create(AnimalTypesData.valueOf(menuAnimal.toUpperCase()), name, intAge, floatWeight, color);
-                newAnimalList.setListAnimals(createdAnimal);
-                System.out.print("Животное типа " + menuAnimal + " успешно порождено. И сказало оно: \n -- ");
-                createdAnimal.say();
+                return createdAnimal;
 
             } catch (AnimalTypesNotSupportedException e) {
                 throw new RuntimeException("Попытка создать экземпляр неподдерживаемого класса: " + menuAnimal, e);

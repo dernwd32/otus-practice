@@ -8,9 +8,6 @@ public class AnimalList {
 
     private ArrayList<AbsAnimal> listAnimals = new ArrayList<>();
 
-    //авось, понадобиться внешний доступ к списку?
-    public ArrayList<AbsAnimal> getListAnimals() { return listAnimals; }
-
     public void setListAnimals(AbsAnimal animal) {
         listAnimals.add(animal);
     }
@@ -30,7 +27,7 @@ public class AnimalList {
 
         Map<String, Integer> animalTypes = new HashMap<>();
         //ещё чуть-чуть рефлексии для счётчика. Можно без неё обновлять данные счётчика
-        // в момент добавления экземпляров, но так скучно
+        //в момент добавления экземпляров, но так скучно
         listAnimals.forEach(
                 thisAnimal -> {
                     String thisClass = thisAnimal.getClass().getSimpleName();
