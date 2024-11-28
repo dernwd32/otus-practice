@@ -14,7 +14,7 @@ public class Funcs {
         //определяем падеж года
         int lastDigit = age % 10;
         int lastTwoDigits = age % 100;
-        if (lastDigit == 0 || lastDigit >= 5 || lastTwoDigits >= 11) return "лет";
+        if (lastDigit == 0 || lastDigit >= 5 || (lastTwoDigits >= 11 && lastTwoDigits <= 14)) return "лет";
         else if (lastDigit == 1) return "год";
         else return "года";
     }
