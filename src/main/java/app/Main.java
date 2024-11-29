@@ -60,10 +60,10 @@ public class Main {
     static AbsAnimal inputAnimal(){
 
             Scanner console = new Scanner(System.in);
-            String menuAnimal;
+            String chosenAnimal;
             Funcs miscFuncs = new Funcs();
             List<String> listChildren = Arrays.stream(AnimalTypesData.values())
-                .map(animalType -> miscFuncs.firstCapitalize(animalType.name()))
+                .map(animalType -> miscFuncs.firstLetterCapitalize(animalType.name()))
                 .toList();
 
             for(;;){
@@ -72,11 +72,11 @@ public class Main {
                 //можно было бы в одном фориче создать лист и вывести меню, но умные люди говорят - моветон!
                 listChildren.forEach(animalType -> System.out.println("\t - " + animalType));
 
-                menuAnimal = miscFuncs.firstCapitalize(console.nextLine().trim());
-                if (!listChildren.contains(menuAnimal) )
-                    System.out.println("Неправильно введен тип животного: " + menuAnimal);
+                chosenAnimal = miscFuncs.firstLetterCapitalize(console.nextLine().trim());
+                if (!listChildren.contains(chosenAnimal) )
+                    System.out.println("Неправильно введен тип животного: " + chosenAnimal);
                 else {
-                    System.out.println("Животное типа " + menuAnimal + " успешно... зачато.");
+                    System.out.println("Животное типа " + chosenAnimal + " успешно... зачато.");
                     break;
                 }
             }
@@ -93,9 +93,9 @@ public class Main {
             int intAge;
             for(;;){
                 System.out.println("Введите возраст животного");
-                String input = console.nextLine().trim();
-                if (input.matches("^[0-9]\\d{0,2}$")) {
-                    intAge = Integer.parseInt(input);
+                String inputAge = console.nextLine().trim();
+                if (inputAge.matches("^[0-9]\\d{0,2}$")) {
+                    intAge = Integer.parseInt(inputAge);
                     break;
                 }
                 else System.out.println("Неправильно введен возраст животного." +
@@ -105,9 +105,9 @@ public class Main {
             float floatWeight;
             for(;;){
                 System.out.println("Введите вес животного");
-                String input = console.nextLine().trim();
-                if (input.matches("^[1-9]\\d{0,2}|[1-9]\\d{0,2}\\.\\d+$")) {
-                    floatWeight = Float.parseFloat(input);
+                String inputWeight = console.nextLine().trim();
+                if (inputWeight.matches("^[1-9]\\d{0,2}|[1-9]\\d{0,2}\\.\\d+$")) {
+                    floatWeight = Float.parseFloat(inputWeight);
                     break;
                 }
                 else
@@ -126,11 +126,11 @@ public class Main {
             //создаём экземпляр и отправляем его обратно в main() в listAnimals. Try-Catch по специально созданному исключению
             try {
                 AbsAnimal createdAnimal  = FactoryAnimal
-                        .create(AnimalTypesData.valueOf(menuAnimal.toUpperCase()), name, intAge, floatWeight, color);
+                        .create(AnimalTypesData.valueOf(chosenAnimal.toUpperCase()), name, intAge, floatWeight, color);
                 return createdAnimal;
 
             } catch (AnimalTypesNotSupportedException e) {
-                throw new RuntimeException("Попытка создать экземпляр неподдерживаемого класса: " + menuAnimal, e);
+                throw new RuntimeException("Попытка создать экземпляр неподдерживаемого класса: " + chosenAnimal, e);
             }
 
         }

@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Funcs {
 
-    public String firstCapitalize(String str) {
+    public String firstLetterCapitalize(String str) {
         return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
     }
 
