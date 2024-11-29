@@ -62,14 +62,14 @@ public class Main {
             Scanner console = new Scanner(System.in);
             String menuAnimal;
             Funcs miscFuncs = new Funcs();
+            List<String> listChildren = Arrays.stream(AnimalTypesData.values())
+                .map(animalType -> miscFuncs.firstCapitalize(animalType.name()))
+                .toList();
 
             for(;;){
                 System.out.println("Выберите животное: ");
 
                 //можно было бы в одном фориче создать лист и вывести меню, но умные люди говорят - моветон!
-                List<String> listChildren = Arrays.stream(AnimalTypesData.values())
-                        .map(animalType -> miscFuncs.firstCapitalize(animalType.name()))
-                        .toList();
                 listChildren.forEach(animalType -> System.out.println("\t - " + animalType));
 
                 menuAnimal = miscFuncs.firstCapitalize(console.nextLine().trim());
