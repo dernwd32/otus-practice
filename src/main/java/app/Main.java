@@ -107,7 +107,7 @@ public class Main {
             for(;;){
                 System.out.println("Введите вес животного");
                 String inputWeight = console.nextLine().trim();
-                if (inputWeight.matches("^[1-9]\\d{0,2}|[1-9]\\d{0,2}\\.\\d+$")) {
+                if (inputWeight.matches("^[1-9]\\d{0,2}(\\.\\d+)?$")) {
                     floatWeight = Float.parseFloat(inputWeight);
                     break;
                 }
@@ -126,9 +126,8 @@ public class Main {
 
             //создаём экземпляр и отправляем его обратно в main() в listAnimals. Try-Catch по специально созданному исключению
             try {
-                AbsAnimal createdAnimal  = FactoryAnimal
-                        .create(AnimalTypesData.valueOf(chosenAnimal.toUpperCase()), name, intAge, floatWeight, color);
-                return createdAnimal;
+                return FactoryAnimal.create(
+                        AnimalTypesData.valueOf(chosenAnimal.toUpperCase()), name, intAge, floatWeight, color);
 
             } catch (AnimalTypesNotSupportedException e) {
                 throw new RuntimeException("Попытка создать экземпляр неподдерживаемого класса: " + chosenAnimal, e);
