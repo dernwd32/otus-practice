@@ -41,7 +41,7 @@ public class AnimalList {
         StringBuilder countStr = new StringBuilder("\n| Всего животных: " + (listAnimals.size()) + " | ");
         animalTypes.forEach((key, value) -> countStr.append(key).append(": ").append(value).append(" | "));
 
-        return countStr.append("\n");
+        return countStr;
 
     }
 }

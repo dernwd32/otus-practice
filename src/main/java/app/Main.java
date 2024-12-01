@@ -22,7 +22,7 @@ public class Main {
         labelExit:
         for(;;) {
             try {
-                System.out.println(listAnimals.countAnimals()
+                System.out.println(listAnimals.countAnimals() + "\n"
                         + "Выберите дальнейшее действие, напечатав одну из команд: ");
                 Arrays.stream(MainMenuData.values()).forEach(
                         menuChoice -> System.out.println("\t" + (menuChoice.ordinal() + 1)
