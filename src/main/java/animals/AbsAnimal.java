@@ -4,8 +4,8 @@ import app.Funcs;
 
 public abstract class AbsAnimal {
     private String name;
-    private Integer age;
-    private Float weight;
+    private int age;
+    private float weight;
     private String color;
 
     //сеттеры и геттеры по факту не используются, сохранены для соответствия условиям задачи
@@ -15,13 +15,13 @@ public abstract class AbsAnimal {
     public void setName(String name) {
         this.name = name;
     }
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
     public void setAge(int age) {
         this.age = age;
     }
-    public Float getWeight() {
+    public float getWeight() {
         return weight;
     }
     public void setWeight(float weight) {

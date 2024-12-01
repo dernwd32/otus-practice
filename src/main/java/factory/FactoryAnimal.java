@@ -5,7 +5,7 @@ import exceptions.AnimalTypesNotSupportedException;
 import data.AnimalTypesData;
 
 public class FactoryAnimal {
-    public static AbsAnimal create(AnimalTypesData animalTypesData, String name, Integer age, Float weight, String color)
+    public static AbsAnimal create(AnimalTypesData animalTypesData, String name, int age, float weight, String color)
             throws AnimalTypesNotSupportedException { //AbsAnimal тут - определение возвращаемого методом типа
         //
         return switch (animalTypesData) {

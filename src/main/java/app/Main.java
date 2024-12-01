@@ -19,8 +19,8 @@ public class Main {
         //создаем список животных
         AnimalList listAnimals = new AnimalList();
 
-        boolean showmenu = true;
-        while (showmenu) {
+        labelExit:
+        for(;;) {
             try {
                 System.out.println(listAnimals.countAnimals()
                         + "Выберите дальнейшее действие, напечатав одну из команд: ");
@@ -33,18 +33,19 @@ public class Main {
 
                 var action = MainMenuData.allOptions(command);
                 switch (action) {
-                    case MainMenuData.ADD -> {
+                    case ADD -> {
                         //вызываем метод, возвращающий созданное по введённым параметрам животное
                         AbsAnimal createdAnimal = inputAnimal();
                         //добавляем созданное животное в список
                         listAnimals.setListAnimals(createdAnimal);
-                        System.out.print("Животное типа " + createdAnimal.getClass().getSimpleName() + " успешно порождено. И сказало оно: \n -- ");
+                        System.out.print("Животное типа " + createdAnimal.getClass().getSimpleName()
+                                + " успешно порождено. И сказало оно: \n -- ");
                         createdAnimal.say();
                     }
-                    case MainMenuData.LIST -> listAnimals.printListAnimals();
-                    case MainMenuData.EXIT -> {
+                    case LIST -> listAnimals.printListAnimals();
+                    case EXIT -> {
                         System.out.println("Покедова!");
-                        showmenu = false;
+                        break labelExit;
                     }
                 }
 

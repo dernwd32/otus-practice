@@ -5,7 +5,7 @@ import animals.AbsAnimal;
 public class Dog extends AbsAnimal {
 
 
-    public Dog (String name, Integer age, Float weight, String color) {
+    public Dog (String name, int age, float weight, String color) {
         super(name, age, weight, color);
     }
 
