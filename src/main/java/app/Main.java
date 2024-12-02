@@ -20,7 +20,6 @@ public class Main {
 
         labelExit:
         for(;;) {
-            try {
                 System.out.println(listAnimals.countAnimals() + "\n"
                         + "Выберите дальнейшее действие, напечатав одну из команд: ");
                 Arrays.stream(MainMenuData.values()).forEach(
@@ -52,10 +51,6 @@ public class Main {
                         break labelExit; //просто так оригинальнее, чем System.exit(0); хочу так! %)
                     }
                 }
-
-            } catch (IllegalStateException e) {
-                System.out.println("Некорректный выбор.");
-            }
 
         }
     }
