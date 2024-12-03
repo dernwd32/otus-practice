@@ -3,6 +3,7 @@ package app;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Scanner;
 
 public class Funcs {
 
@@ -27,5 +28,18 @@ public class Funcs {
         // лучше, чем String.format("%.3f", weight), хотя бы потому что отрезает лишние нули
         return df.format(number);
     }
+
+    public String inputWithRegexChecker(String regexRule, String questionText, String errorText) {
+        String input;
+        for (;;) {
+            Scanner console = new Scanner(System.in);
+            System.out.println(questionText);
+            input = console.nextLine().trim();
+            if (input.matches(regexRule)) return input;
+            else if (!errorText.isEmpty()) System.out.println(errorText);
+        }
+    }
+
+
 }
 

@@ -86,45 +86,30 @@ public class Main {
             }
         }
 
-        String name;
-        for (;;) {
-            System.out.println("Введите имя животного");
-            name = console.nextLine().trim();
-            if (name.matches("^[A-z \\-\\d]{2,30}|[А-яЁё \\-\\d]{2,30}$")) break;
-            else System.out.println("Имя может содержать только буквы русского или(!) английского " +
-                    "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов.");
-        }
+        String name = miscFuncs.inputWithRegexChecker(
+                "^[A-z \\-\\d]{2,30}|[А-яЁё \\-\\d]{2,30}$",
+                "Введите имя животного",
+                "Имя может содержать только буквы русского или(!) английского " +
+                    "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов."
+        );
 
-        int intAge;
-        for (;;) {
-            System.out.println("Введите возраст животного");
-            String inputAge = console.nextLine().trim();
-            if (inputAge.matches("^[0-9]\\d{0,2}$")) {
-                intAge = Integer.parseInt(inputAge);
-                break;
-            } else System.out.println("Неправильно введен возраст животного." +
-                    " Возраст должен быть целым числом от 0 до 999. ");
-        }
+        int intAge = Integer.parseInt(miscFuncs.inputWithRegexChecker(
+                "^[0-9]\\d{0,2}$",
+                "Введите возраст животного",
+                "Неправильно введен возраст животного. Возраст должен быть целым числом от 0 до 999"
+        ));
 
-        float floatWeight;
-        for (;;) {
-            System.out.println("Введите вес животного");
-            String inputWeight = console.nextLine().trim();
-            if (inputWeight.matches("^[1-9]\\d{0,2}(\\.\\d+)?$")) {
-                floatWeight = Float.parseFloat(inputWeight);
-                break;
-            } else
-                System.out.println("Неправильно введен вес животного." +
-                        " Вес должен быть числом (с плавающей точкой) от 1 до 999.999... ");
-        }
+        float floatWeight = Float.parseFloat(miscFuncs.inputWithRegexChecker(
+                "^[1-9]\\d{0,2}(\\.\\d+)?$",
+                "Введите вес животного",
+                "Неправильно введен вес животного. Вес должен быть числом (с плавающей точкой) от 1 до 999.999"
+        ));
 
-        String color;
-        for (;;) {
-            System.out.println("Введите цвет животного строго в формате hex-RGB: " +
-                    "#XXXXXX (например, для красного #FF0000)");
-            color = console.nextLine().trim();
-            if (color.matches("^#[a-fA-F0-9]{6}$")) break;
-        }
+        String color = miscFuncs.inputWithRegexChecker(
+                "^#[a-fA-F0-9]{6}$",
+                "Введите цвет животного строго в формате hex-RGB: #XXXXXX (например, для красного #FF0000)",
+                ""
+        );
 
         //создаём экземпляр фабрики, чтоб избавиться от объявления статиком всего класса
         FactoryAnimal factoryAnimal = new FactoryAnimal();
