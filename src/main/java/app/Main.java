@@ -17,6 +17,8 @@ public class Main {
 
         //создаем список животных
         AnimalList listAnimals = new AnimalList();
+        //Создаём экземпляр класса Main для вызова метода inputAnimals(), создающего новое животное
+        Main main = new Main();
 
         labelExit:
         for(;;) {
@@ -34,7 +36,7 @@ public class Main {
                 switch (action) {
                     case ADD -> {
                         //вызываем метод, возвращающий созданное по введённым параметрам животное
-                        AbsAnimal createdAnimal = inputAnimal();
+                        AbsAnimal createdAnimal = main.inputAnimal();
                         if (createdAnimal != null) {
                             //добавляем созданное животное в список
                             listAnimals.setListAnimals(createdAnimal);
@@ -60,9 +62,7 @@ public class Main {
         }
     }
 
-
-    //метод обрабатывает пользовательский ввод параметров животного и возвращает созданное животное в main()
-    static AbsAnimal inputAnimal() {
+    AbsAnimal inputAnimal() {
 
         Scanner console = new Scanner(System.in);
         String chosenAnimal;
@@ -86,26 +86,26 @@ public class Main {
             }
         }
 
-        String name = miscFuncs.inputWithRegexChecker(
+        String name = miscFuncs.inputWithRegexValidate(
                 "^[A-z \\-\\d]{2,30}|[А-яЁё \\-\\d]{2,30}$",
                 "Введите имя животного",
                 "Имя может содержать только буквы русского или(!) английского " +
-                    "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов."
+                        "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов."
         );
 
-        int intAge = Integer.parseInt(miscFuncs.inputWithRegexChecker(
+        int intAge = Integer.parseInt(miscFuncs.inputWithRegexValidate(
                 "^[0-9]\\d{0,2}$",
                 "Введите возраст животного",
                 "Неправильно введен возраст животного. Возраст должен быть целым числом от 0 до 999"
         ));
 
-        float floatWeight = Float.parseFloat(miscFuncs.inputWithRegexChecker(
+        float floatWeight = Float.parseFloat(miscFuncs.inputWithRegexValidate(
                 "^[1-9]\\d{0,2}(\\.\\d+)?$",
                 "Введите вес животного",
                 "Неправильно введен вес животного. Вес должен быть числом (с плавающей точкой) от 1 до 999.999"
         ));
 
-        String color = miscFuncs.inputWithRegexChecker(
+        String color = miscFuncs.inputWithRegexValidate(
                 "^#[a-fA-F0-9]{6}$",
                 "Введите цвет животного строго в формате hex-RGB: #XXXXXX (например, для красного #FF0000)",
                 ""
@@ -118,10 +118,6 @@ public class Main {
                 AnimalTypesData.valueOf(chosenAnimal.toUpperCase()), name, intAge, floatWeight, color);
 
     }
-
-
-
-
 }
 
 

@@ -29,7 +29,7 @@ public class Funcs {
         return df.format(number);
     }
 
-    public String inputWithRegexChecker(String regexRule, String questionText, String errorText) {
+    public String inputWithRegexValidate(String regexRule, String questionText, String errorText) {
         String input;
         for (;;) {
             Scanner console = new Scanner(System.in);
