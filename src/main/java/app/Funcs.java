@@ -30,11 +30,10 @@ public class Funcs {
     }
 
     public String inputWithRegexValidate(String regexRule, String questionText, String errorText) {
-        String input;
         for (;;) {
             Scanner console = new Scanner(System.in);
             System.out.println(questionText);
-            input = console.nextLine().trim();
+            String input = console.nextLine().trim();
             if (input.matches(regexRule)) return input;
             else if (!errorText.isEmpty()) System.out.println(errorText);
         }
