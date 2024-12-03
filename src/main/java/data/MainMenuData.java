@@ -11,7 +11,7 @@ public enum MainMenuData {
             case "add", "создать", "добавить", "сотворить чудо", "1" -> ADD;
             case "list", "список", "показать", "2" -> LIST;
             case "exit", "выход", "изыди", "3" -> EXIT;
-            default -> throw new IllegalStateException("Unexpected value: " + string.toLowerCase().trim());
+            default -> throw new IllegalStateException();
         };
     }
 }
