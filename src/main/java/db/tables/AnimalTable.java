@@ -60,22 +60,24 @@ public class AnimalTable extends AbsTable{
        // AnimalTools animalTools = new AnimalTools();
 
         dbConnect = new MySQLConnect();
-        ResultSet resultSet = dbConnect.executeQuery(String.format("SELECT * FROM %s;", TABLE_NAME));
-        while (resultSet.next()) {
-            int dbId = resultSet.getInt("id");
-            String color = resultSet.getString("color");
-            String name = resultSet.getString("name");
-            float weight = resultSet.getFloat("weight");
-            String type = resultSet.getString("type");
-            int age = resultSet.getInt("age");
+        try (ResultSet resultSet = dbConnect.executeQuery(String.format("SELECT * FROM %s;", TABLE_NAME))) {
+            while (resultSet.next()) {
+                int dbId = resultSet.getInt("id");
+                String color = resultSet.getString("color");
+                String name = resultSet.getString("name");
+                float weight = resultSet.getFloat("weight");
+                String type = resultSet.getString("type");
+                int age = resultSet.getInt("age");
 
-            //создаём экземпляр фабрики
-            FactoryAnimal factoryAnimal = new FactoryAnimal();
-            //создаём экземпляр дочернего класса через фабрику и отправляем его в listAnimals.
-            AbsAnimal createdAnimal = factoryAnimal.create(
-                    AnimalTypesData.valueOf(type.toUpperCase()), name, age, weight, color, dbId);
-            listAnimals.setListAnimals(createdAnimal);
+                //создаём экземпляр фабрики
+                FactoryAnimal factoryAnimal = new FactoryAnimal();
+                //создаём экземпляр дочернего класса через фабрику и отправляем его в listAnimals.
+                AbsAnimal createdAnimal = factoryAnimal.create(
+                        AnimalTypesData.valueOf(type.toUpperCase()), name, age, weight, color, dbId);
+                listAnimals.setListAnimals(createdAnimal);
+            }
         }
+
         switchUpdateStatus(false);
         return listAnimals;
     }

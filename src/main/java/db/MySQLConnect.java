@@ -14,8 +14,6 @@ public class MySQLConnect implements IDBConnect {
     //открытие подключения к бд
     private void open(){
 
-
-
         //открываем подключение
         try {
             if (connection == null) {
@@ -34,11 +32,14 @@ public class MySQLConnect implements IDBConnect {
 
     }
 
-    @Override
-    public void execute(String sqlRequest) {
-        this.open();
+    private void close(){
         try {
-            statement.execute(sqlRequest);
+            if (connection != null) {
+                connection.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,13 +47,26 @@ public class MySQLConnect implements IDBConnect {
     }
 
     @Override
+    public void execute(String sqlRequest) {
+        open();
+        try {
+            statement.execute(sqlRequest);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        close();
+
+    }
+
+    @Override
     public ResultSet executeQuery(String sqlRequest) {
-        this.open();
+        open();
         try {
             return statement.executeQuery(sqlRequest);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        close();
         return null;
     }
 }
