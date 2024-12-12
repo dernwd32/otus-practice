@@ -181,27 +181,27 @@ public class AnimalTools {
 
         String[] ids = input.split(",");
 
-        for (String key : ids) {
-            key = key.trim();
-            if (!key.isEmpty()) {
-                int thisId = Integer.parseInt(key);
-                try (ResultSet animalById = animalTable.selectWhereId(thisId)) {
-                    //проверяем наличие такого id в базе
-                    if (animalById.next()) {
+        Arrays.stream(ids)
+                .map(key -> key.trim()) //собираем со срезанными пробелами
+                .filter(key -> !key.isEmpty()) //выкидываем пустые значения id
+                .mapToInt(key -> Integer.parseInt(key)) // пересобираем с преобразованием стрингов в инты
+                .forEach(thisId -> { //гоним цикл
+                    try (ResultSet animalById = animalTable.selectWhereId(thisId)) {
+                        //проверяем наличие такого id в базе
+                        if (animalById.next()) {
 
-                        //удаляем из базы
-                        animalTable.delete(thisId);
-                        System.out.print("Животное с id #" + thisId + " успешно удалено. \n ");
+                            //удаляем из базы
+                            animalTable.delete(thisId);
+                            System.out.print("Животное с id #" + thisId + " успешно удалено.\n");
 
-                    } else {
-                        System.out.println("Несуществующий id #" + thisId + ". Удаление невозможно.");
+                        } else {
+                            System.out.println("Несуществующий id #" + thisId + ". Удаление невозможно.");
+                        }
+
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
-
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
+                });
 
 
     }
