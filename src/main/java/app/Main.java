@@ -2,14 +2,15 @@ package app;
 
 import animals.AbsAnimal;
 import animals.AnimalList;
-import animals.EditAnimal;
-import animals.InputAnimal;
+import animals.AnimalTools;
+import data.AnimalTypesData;
 import data.MainMenuData;
 import db.tables.AnimalTable;
+import factory.FactoryAnimal;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -20,12 +21,13 @@ public class Main {
 
         //создаем список животных
         AnimalList listAnimals = new AnimalList();
-        //Создаём экземпляр класса InputAnimal для вызова метода inputAnimals(), создающего новое животное
-        InputAnimal inputAnimal = new InputAnimal();
         //Создаём объект таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
         //создаем объект EditAnimal для вызова методов изменения объекта
-        EditAnimal editAnimal = new EditAnimal();
+        //EditAnimal editAnimal = new EditAnimal();
+        AnimalTools animalTools = new AnimalTools();
+        //создаём экземпляр фабрики, чтоб избавиться от объявления статиком всего класса
+        FactoryAnimal factoryAnimal = new FactoryAnimal();
 
         labelExit:
         for(;;) {
@@ -47,25 +49,17 @@ public class Main {
                 var action = MainMenuData.allOptions(command);
                 switch (action) {
                     case ADD -> {
-                        //вызываем метод, возвращающий созданное по введённым параметрам животное
-                        AbsAnimal createdAnimal = inputAnimal.inputAnimal();
-                        String type = createdAnimal.getClass().getSimpleName();
-                        if (createdAnimal != null) {
-                            //пишем в базу
-                            animalTable.insert(createdAnimal, type);
-                            System.out.print("Животное типа " + type
-                                    + " успешно порождено. И сказало оно: \n -- ");
-                            createdAnimal.say();
-                        }
-                        //если в енаме добавили новую дочку, а на фабрике забыли, то фабрика вернула null =>
-                        else System.out.println("Выбранное вами животное не поддерживается нашей фабрикой! " +
-                                "Пните разработчика за невнимательность!");
+                        animalTools.addAnimal();
                     }
                     case EDIT -> {
                         listAnimals.printListAnimals();
-                        editAnimal.editAnimal();
+                        animalTools.editAnimal();
                     }
                     case LIST -> listAnimals.printListAnimals();
+                    case DELETE -> {
+                        listAnimals.printListAnimals();
+                        animalTools.deleteAnimal();
+                    }
                     case EXIT -> {
                         System.out.println("Покедова!");
                         break labelExit; //просто так оригинальнее, чем System.exit(0); хочу так! %)

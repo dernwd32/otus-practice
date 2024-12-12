@@ -8,7 +8,8 @@ import java.util.Scanner;
 public class Funcs {
 
     public String firstLetterCapitalize(String str) {
-        return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
+        if (!str.isEmpty()) return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
+        else return "";
     }
 
     public String agePostfix(int age) {
@@ -29,11 +30,14 @@ public class Funcs {
         return df.format(number);
     }
 
-    public String inputWithRegexValidate(String regexRule, String questionText, String errorText) {
+    public String inputWithRegexValidate(String regexRule, String questionText, String errorText, boolean canCancel) {
+
         for (;;) {
             Scanner console = new Scanner(System.in);
             System.out.println(questionText);
+            if (canCancel) System.out.println("Вернуться в главное меню - 'cancel'");
             String input = console.nextLine().trim();
+            if (canCancel && input.equals("cancel")) return null;
             if (input.matches(regexRule)) return input;
             else if (!errorText.isEmpty()) System.out.println(errorText);
         }

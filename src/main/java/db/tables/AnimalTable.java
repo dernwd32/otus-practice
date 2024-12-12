@@ -2,7 +2,7 @@ package db.tables;
 
 import animals.AbsAnimal;
 import animals.AnimalList;
-import animals.InputAnimal;
+import animals.AnimalTools;
 import data.AnimalTypesData;
 import db.MySQLConnect;
 import factory.FactoryAnimal;
@@ -34,10 +34,19 @@ public class AnimalTable extends AbsTable{
     public void update(String color, String name, float weight, String type, int age, int id) {
         String query = String.format("UPDATE %s SET " +
                         "color = '%s', name = '%s', weight = '%s', type = '%s', " +
-                        "age = '%s' WHERE animals.id = %s;" ,
+                        "age = '%s' WHERE id = %s;" ,
                 TABLE_NAME, color, name, weight, type, age,  id
         );
-        System.out.println(query);
+
+       // System.out.println(query);
+        dbConnect.execute(query);
+
+        switchUpdateStatus(true);
+    }
+
+    public void delete(int id) {
+        String query = String.format( "DELETE FROM %s WHERE id = " + id +";" , TABLE_NAME,  id );
+        // System.out.println(query);
         dbConnect.execute(query);
 
         switchUpdateStatus(true);
@@ -47,8 +56,8 @@ public class AnimalTable extends AbsTable{
     public AnimalList read() throws SQLException {
         //создаем список животных
         AnimalList listAnimals = new AnimalList();
-        //Создаём экземпляр класса InputAnimal для вызова метода inputAnimals(), создающего новое животное
-        InputAnimal inputAnimal = new InputAnimal();
+        //Создаём экземпляр класса animalTools для вызова метода inputAnimals(), создающего новое животное
+       // AnimalTools animalTools = new AnimalTools();
 
         dbConnect = new MySQLConnect();
         ResultSet resultSet = dbConnect.executeQuery(String.format("SELECT * FROM %s;", TABLE_NAME));
