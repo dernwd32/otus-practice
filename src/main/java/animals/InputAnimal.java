@@ -58,12 +58,12 @@ public class InputAnimal {
                 "Введите цвет животного строго в формате hex-RGB: #XXXXXX (например, для красного #FF0000)",
                 ""
         );
-
+        int dbId = 0;
         //создаём экземпляр фабрики, чтоб избавиться от объявления статиком всего класса
         FactoryAnimal factoryAnimal = new FactoryAnimal();
         //создаём экземпляр дочернего класса через фабрику и отправляем его обратно в main() в listAnimals.
         return factoryAnimal.create(
-                AnimalTypesData.valueOf(chosenAnimal.toUpperCase()), name, intAge, floatWeight, color);
+                AnimalTypesData.valueOf(chosenAnimal.toUpperCase()), name, intAge, floatWeight, color, dbId);
 
     }
 

@@ -7,6 +7,7 @@ public abstract class AbsAnimal {
     private int age;
     private float weight;
     private String color;
+    private int dbId;
 
     //сеттеры и геттеры по факту не используются, сохранены для соответствия условиям задачи
     public String getName() {
@@ -33,6 +34,10 @@ public abstract class AbsAnimal {
     public void setColor(String color) {
         this.color = color;
     }
+    public int getDbId() {return dbId;}
+    public void setDbId(int dbId) {
+        this.dbId = dbId;
+    }
 
 
     //кучка неиспользуемых методов - тоже по условию задачи
@@ -43,11 +48,12 @@ public abstract class AbsAnimal {
 
 
     //Конструктор задан здесь для того, чтоб указать наследникам "как надо".
-    protected AbsAnimal(String name, int age, float weight, String color) {
+    protected AbsAnimal(String name, int age, float weight, String color, int dbId) {
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.color = color;
+        this.dbId = dbId;
     }
 
     Funcs miscFuncs = new Funcs();
@@ -55,8 +61,8 @@ public abstract class AbsAnimal {
     @Override
     public String toString() {
 
-        return "Привет! меня зовут %s, мне %d %s, я вешу %s кг, мой цвет - %s"
-                .formatted(name, age, miscFuncs.agePostfix(age),
+        return "[id = %s] Привет! меня зовут %s, мне %d %s, я вешу %s кг, мой цвет - %s. "
+                .formatted(dbId, name, age, miscFuncs.agePostfix(age),
                         miscFuncs.floatTemplate(weight), color);
     }
 

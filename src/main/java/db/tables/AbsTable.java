@@ -17,12 +17,12 @@ public class AbsTable implements ITable{
 
     @Override
     public void create(List<String> columns) {
-        delete();
+        drop();
         dbConnect.execute(String.format("CREATE TABLE %s(%s);", tableName, String.join(",", columns)));
     }
 
     @Override
-    public void delete() {
+    public void drop() {
         dbConnect.execute(String.format("DROP TABLE  if exists %s;", tableName));
     }
 
@@ -30,4 +30,6 @@ public class AbsTable implements ITable{
         return  dbConnect.executeQuery(String.format("SELECT * FROM %s;", tableName));
     }
 
+    public ResultSet selectWhereId(int id) {return
+            dbConnect.executeQuery(String.format("SELECT * FROM %s WHERE id = " + id + ";", tableName));    }
 }
