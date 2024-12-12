@@ -15,7 +15,6 @@ public class AnimalTable extends AbsTable{
         super(TABLE_NAME);
     }
 
-
     public void insert(AbsAnimal animal, String type){
         dbConnect.execute(String.format("INSERT INTO %s (id, color, name, weight, type, age)"
                 + "VALUES(NULL, '%s', '%s', '%s', '%s', '%s')" ,

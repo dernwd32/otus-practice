@@ -11,7 +11,6 @@ import java.util.*;
 
 public class AnimalTools {
 
-
     public Map<String, Object> inputAnimal() {
 
         Scanner console = new Scanner(System.in);
@@ -92,8 +91,9 @@ public class AnimalTools {
 
         //вызываем метод, возвращающий HashMap с введёнными параметрами животного
         Map<String,Object> animalValues = inputAnimal();
-        // if (animalValues==null) return; //выход через 'cancel'
-        if(Objects.isNull(animalValues)) return;
+
+        if(Objects.isNull(animalValues)) return;  //выход через 'cancel'
+
         String type = animalValues.get("type").toString();
 
         //создаём экземпляр дочернего класса через фабрику
@@ -105,7 +105,6 @@ public class AnimalTools {
                 animalValues.get("color").toString(),
                 0
         );
-        //String type = createdAnimal.getClass().getSimpleName();
 
         if (createdAnimal != null) {
             //пишем в базу
@@ -141,8 +140,6 @@ public class AnimalTools {
             try (ResultSet animalById = animalTable.selectWhereId(Integer.parseInt(input))) {
                 //проверяем наличие такого id в базе
                 if (animalById.next()) {
-                    //System.out.println("Есть " + input);
-
                     //вызываем метод, возвращающий HashMap с введёнными параметрами животного
                     Map<String,Object> animalValues = inputAnimal();
 
@@ -192,7 +189,7 @@ public class AnimalTools {
                     //проверяем наличие такого id в базе
                     if (animalById.next()) {
 
-                        //пишем в базу
+                        //удаляем из базы
                         animalTable.delete(thisId);
                         System.out.print("Животное с id #" + thisId + " успешно удалено. \n ");
 

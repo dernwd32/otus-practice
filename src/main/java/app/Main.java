@@ -48,9 +48,7 @@ public class Main {
 
                 var action = MainMenuData.allOptions(command);
                 switch (action) {
-                    case ADD -> {
-                        animalTools.addAnimal();
-                    }
+                    case ADD -> animalTools.addAnimal();
                     case EDIT -> {
                         listAnimals.printTableListAnimals();
                         animalTools.editAnimal();

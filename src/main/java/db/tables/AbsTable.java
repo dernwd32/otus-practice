@@ -29,7 +29,11 @@ public class AbsTable implements ITable{
     public ResultSet selectAll() {
         return  dbConnect.executeQuery(String.format("SELECT * FROM %s;", tableName));
     }
-
-    public ResultSet selectWhereId(int id) {return
-            dbConnect.executeQuery(String.format("SELECT * FROM %s WHERE id = " + id + ";", tableName));    }
+    public ResultSet selectWhereId(int id) {
+        return dbConnect.executeQuery(String.format("SELECT * FROM %s WHERE id = " + id + ";", tableName));
+    }
+    public ResultSet selectQ(String query) {
+        //произвольный запрос в одну таблицу с авто подстановкой имени таблицы
+        return dbConnect.executeQuery(query.replace("TABLENAME", tableName));
+    }
 }
