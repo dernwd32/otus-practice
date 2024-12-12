@@ -32,19 +32,7 @@ public class MySQLConnect implements IDBConnect {
 
     }
 
-    private void close(){
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-    }
 
     @Override
     public void execute(String sqlRequest) {
@@ -54,7 +42,6 @@ public class MySQLConnect implements IDBConnect {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close();
 
     }
 
@@ -66,7 +53,6 @@ public class MySQLConnect implements IDBConnect {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        close();
         return null;
     }
 }

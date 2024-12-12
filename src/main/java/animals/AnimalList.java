@@ -23,6 +23,25 @@ public class AnimalList {
 
     }
 
+    public void printTableListAnimals() {
+
+        if (listAnimals.isEmpty()) System.out.println("Список животных пуст.");
+        else {
+            System.out.println(
+                    String.format( "%-25s | %-10s | %-10s | %-10s | %-10s",
+                    "name", "age", "weight", "color", "type#\u001B[36mid\u001B[0m")
+                    + "\n"
+                    + "-----------------------------------------------------------------------"
+            );
+
+            listAnimals.forEach(thisAnimal -> System.out.println(
+                    thisAnimal.toTableTr(thisAnimal.getClass().getSimpleName())));
+        }
+
+    }
+
+
+
     public StringBuilder countAnimals() {
 
         Map<String, Integer> animalTypes = new HashMap<>();
@@ -40,6 +59,7 @@ public class AnimalList {
 
         StringBuilder countStr = new StringBuilder("\n| Всего животных: " + (listAnimals.size()) + " | ");
         animalTypes.forEach((key, value) -> countStr.append(key).append(": ").append(value).append(" | "));
+
 
         return countStr;
 

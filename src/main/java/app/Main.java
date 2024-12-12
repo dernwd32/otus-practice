@@ -38,7 +38,7 @@ public class Main {
 
             try {
                 System.out.println(listAnimals.countAnimals() + "\n"
-                        + "Выберите дальнейшее действие, напечатав одну из команд: ");
+                        + "\u001b[36;1mВыберите дальнейшее действие, напечатав одну из команд: \u001B[0m");
                 Arrays.stream(MainMenuData.values()).forEach(
                         menuChoice -> System.out.println("\t" + (menuChoice.ordinal() + 1)
                                 + " - " + menuChoice.toString().toLowerCase()));
@@ -52,12 +52,12 @@ public class Main {
                         animalTools.addAnimal();
                     }
                     case EDIT -> {
-                        listAnimals.printListAnimals();
+                        listAnimals.printTableListAnimals();
                         animalTools.editAnimal();
                     }
                     case LIST -> listAnimals.printListAnimals();
                     case DELETE -> {
-                        listAnimals.printListAnimals();
+                        listAnimals.printTableListAnimals();
                         animalTools.deleteAnimal();
                     }
                     case EXIT -> {

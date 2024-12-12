@@ -17,16 +17,17 @@ public class AnimalTools {
         Scanner console = new Scanner(System.in);
         String chosenAnimal;
         Funcs miscFuncs = new Funcs();
-        List<String> listChildren = Arrays.stream(AnimalTypesData.values())
+        List<String> listChildren = Arrays.stream(
+                AnimalTypesData.values())
                 .map(animalType -> miscFuncs.firstLetterCapitalize(animalType.name()))
                 .toList();
 
         for (;;) {
-            System.out.println("Выберите животное: ");
+            System.out.println("\u001b[36;1m> Выберите животное: \u001B[0m");
 
             //можно было бы в одном фориче создать лист и вывести меню, но умные люди говорят - моветон!
             listChildren.forEach(animalType -> System.out.println("\t - " + animalType));
-
+            System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
 
             chosenAnimal = miscFuncs.firstLetterCapitalize(console.nextLine().trim());
             if (chosenAnimal.equalsIgnoreCase("cancel")) return null; //выход через 'cancel'
@@ -37,36 +38,38 @@ public class AnimalTools {
                 break;
             }
         }
-
         String name = miscFuncs.inputWithRegexValidate(
                 "^[A-z \\-\\d]{2,30}|[А-яЁё \\-\\d]{2,30}$",
                 "Введите имя животного",
                 "Имя может содержать только буквы русского или(!) английского " +
-                        "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов.",
-                false
+                        "алфавитов, цифры, пробел и дефис. R2-D2 - можно. BigЗлыдень - нет! От 2 до 30 символов."
         );
+        if (name == null) return null; //выход через 'cancel'
 
-        int intAge = Integer.parseInt(miscFuncs.inputWithRegexValidate(
+        String age = miscFuncs.inputWithRegexValidate(
                 "^[0-9]\\d{0,2}$",
                 "Введите возраст животного",
-                "Неправильно введен возраст животного. Возраст должен быть целым числом от 0 до 999",
-                false
-        ));
+                "Неправильно введен возраст животного. Возраст должен быть целым числом от 0 до 999"
+        );
+        if (age == null) return null; //выход через 'cancel'
+        int intAge = Integer.parseInt(age);
 
-        float floatWeight = Float.parseFloat(miscFuncs.inputWithRegexValidate(
+        String weight = miscFuncs.inputWithRegexValidate(
                 "^[1-9]\\d{0,2}(\\.\\d+)?$",
                 "Введите вес животного",
-                "Неправильно введен вес животного. Вес должен быть числом (с плавающей точкой) от 1 до 999.999",
-                false
-        ));
+                "Неправильно введен вес животного. Вес должен быть числом (с плавающей точкой) от 1 до 999.999"
+        );
+        if (weight == null) return null; //выход через 'cancel'
+        float floatWeight = Float.parseFloat(weight);
+
 
         String color = miscFuncs.inputWithRegexValidate(
                 "^#[a-fA-F0-9]{6}$",
                 "Введите цвет животного строго в формате hex-RGB: #XXXXXX (например, для красного #FF0000)",
-                "",
-                false
+                ""
         );
-        int dbId = 0;
+        if (color == null) return null; //выход через 'cancel'
+        //int dbId = 0;
 
         Map<String, Object> inputValues = new HashMap<>();
         inputValues.put("type", chosenAnimal);
@@ -89,7 +92,8 @@ public class AnimalTools {
 
         //вызываем метод, возвращающий HashMap с введёнными параметрами животного
         Map<String,Object> animalValues = inputAnimal();
-        if (animalValues==null) return; //выход через 'cancel'
+        // if (animalValues==null) return; //выход через 'cancel'
+        if(Objects.isNull(animalValues)) return;
         String type = animalValues.get("type").toString();
 
         //создаём экземпляр дочернего класса через фабрику
@@ -128,9 +132,8 @@ public class AnimalTools {
 
             String input = miscFuncs.inputWithRegexValidate(
                     "^[0-9]{1,10}$",
-                    "\nВведите id записи, которую хотите изменить",
-                    "Некорректное значение id",
-                    true
+                    "Введите id записи, которую хотите изменить",
+                    "Некорректное значение id"
             );
 
             if (input == null) break; //выход в главное меню через 'cancel'
@@ -174,12 +177,9 @@ public class AnimalTools {
 
         String input = miscFuncs.inputWithRegexValidate(
                 "^[0-9 ,]+$",
-                "\nВведите id записи, которую хотите удалить. Либо перечислите id для удаления через запятую.",
-                "Некорректные значения id",
-                true
+                "Введите id записи, которую хотите удалить. Либо перечислите id через запятую для массового удаления.",
+                "Некорректные значения id"
         );
-
-
         if (input == null) return;  //выход в главное меню через 'cancel'
 
         String[] ids = input.split(",");

@@ -30,14 +30,14 @@ public class Funcs {
         return df.format(number);
     }
 
-    public String inputWithRegexValidate(String regexRule, String questionText, String errorText, boolean canCancel) {
+    public String inputWithRegexValidate(String regexRule, String questionText, String errorText) {
 
         for (;;) {
             Scanner console = new Scanner(System.in);
-            System.out.println(questionText);
-            if (canCancel) System.out.println("Вернуться в главное меню - 'cancel'");
+            System.out.println("\u001b[36;1m> " + questionText + "\u001B[0m");
+            System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
             String input = console.nextLine().trim();
-            if (canCancel && input.equals("cancel")) return null;
+            if (input.equals("cancel")) return null;
             if (input.matches(regexRule)) return input;
             else if (!errorText.isEmpty()) System.out.println(errorText);
         }
