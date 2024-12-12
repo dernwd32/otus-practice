@@ -17,7 +17,7 @@ public class AnimalList {
         if (listAnimals.isEmpty()) System.out.println("Список животных пуст.");
         else listAnimals.forEach(thisAnimal -> {
                 //чуть-чуть рефлексии для красивого вывода типа животного
-                System.out.print(thisAnimal.getClass().getSimpleName() + ": ");
+                System.out.print(thisAnimal.getClass().getSimpleName() + "#");
                 System.out.println(thisAnimal.toString());
             });
 

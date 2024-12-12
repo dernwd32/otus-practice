@@ -2,9 +2,7 @@ package db.tables;
 
 import animals.AbsAnimal;
 import animals.AnimalList;
-import animals.AnimalTools;
 import data.AnimalTypesData;
-import db.MySQLConnect;
 import factory.FactoryAnimal;
 
 
@@ -56,24 +54,23 @@ public class AnimalTable extends AbsTable{
     public AnimalList read() throws SQLException {
         //создаем список животных
         AnimalList listAnimals = new AnimalList();
-        //Создаём экземпляр класса animalTools для вызова метода inputAnimals(), создающего новое животное
-       // AnimalTools animalTools = new AnimalTools();
 
-        dbConnect = new MySQLConnect();
         try (ResultSet resultSet = dbConnect.executeQuery(String.format("SELECT * FROM %s;", TABLE_NAME))) {
             while (resultSet.next()) {
-                int dbId = resultSet.getInt("id");
-                String color = resultSet.getString("color");
-                String name = resultSet.getString("name");
-                float weight = resultSet.getFloat("weight");
-                String type = resultSet.getString("type");
-                int age = resultSet.getInt("age");
 
                 //создаём экземпляр фабрики
                 FactoryAnimal factoryAnimal = new FactoryAnimal();
-                //создаём экземпляр дочернего класса через фабрику и отправляем его в listAnimals.
+                //создаём экземпляр дочернего класса через фабрику
                 AbsAnimal createdAnimal = factoryAnimal.create(
-                        AnimalTypesData.valueOf(type.toUpperCase()), name, age, weight, color, dbId);
+                        AnimalTypesData.valueOf(resultSet.getString("type").toUpperCase()),
+                        resultSet.getString("name"),
+                        resultSet.getInt("age"),
+                        resultSet.getFloat("weight"),
+                        resultSet.getString("color"),
+                        resultSet.getInt("id")
+                );
+
+                //загружаем животного в список животных
                 listAnimals.setListAnimals(createdAnimal);
             }
         }

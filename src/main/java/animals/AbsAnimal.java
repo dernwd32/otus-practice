@@ -61,7 +61,7 @@ public abstract class AbsAnimal {
     @Override
     public String toString() {
 
-        return "[id = %s] Привет! меня зовут %s, мне %d %s, я вешу %s кг, мой цвет - %s. "
+        return "%s -- Привет! меня зовут %s, мне %d %s, я вешу %s кг, мой цвет - %s. "
                 .formatted(dbId, name, age, miscFuncs.agePostfix(age),
                         miscFuncs.floatTemplate(weight), color);
     }
