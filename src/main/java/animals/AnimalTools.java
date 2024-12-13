@@ -123,11 +123,10 @@ public class AnimalTools {
         //Создаём экземпляр таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
 
+        Funcs miscFuncs = new Funcs();
 
        // boolean existsId = false;
         while (true) {
-            Funcs miscFuncs = new Funcs();
-
 
             String input = miscFuncs.inputWithRegexValidate(
                     "^[0-9]{1,10}$",
@@ -140,8 +139,16 @@ public class AnimalTools {
             try (ResultSet animalById = animalTable.selectWhereId(Integer.parseInt(input))) {
                 //проверяем наличие такого id в базе
                 if (animalById.next()) {
+                    System.out.println( "\u001B[33mВыбранная для изменения запись: \u001b[3m"
+                            + miscFuncs.firstLetterCapitalize(animalById.getString("type")) + "#"
+                            + animalById.getString("id") + " "
+                            + animalById.getString("name") + "\u001B[0m\n"
+                            + "\u001B[33mВвод новых данных...\u001B[0m"
+                    );
                     //вызываем метод, возвращающий HashMap с введёнными параметрами животного
                     Map<String,Object> animalValues = inputAnimal();
+
+                    if (Objects.isNull(animalValues)) break; // выход через cancel
 
                     //пишем в базу
                     animalTable.update(
@@ -191,7 +198,7 @@ public class AnimalTools {
                         if (animalById.next()) {
 
                             //удаляем из базы
-                            animalTable.delete(thisId);
+                            animalTable.deleteWhereId(thisId);
                             System.out.print("Животное с id #" + thisId + " успешно удалено.\n");
 
                         } else {

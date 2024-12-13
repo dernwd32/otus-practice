@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Funcs {
 
@@ -42,6 +43,7 @@ public class Funcs {
             else if (!errorText.isEmpty()) System.out.println(errorText);
         }
     }
+
 
 
 }

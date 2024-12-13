@@ -13,7 +13,9 @@ public class Settings {
         Map<String,String> prop = new HashMap<>();
 
         try {
-            properties.load(new FileInputStream((System.getProperty("user.dir")
+            //String rootDir = System.getProperty("user.dir");
+            String rootDir = "C:/Users/dernw/IdeaProjects/otus1";
+            properties.load(new FileInputStream((rootDir
                     + "/src/main/resources/SQLSettings.properties")));
         } catch (IOException e) {
             throw new RuntimeException(e);

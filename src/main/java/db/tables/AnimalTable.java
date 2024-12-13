@@ -2,8 +2,10 @@ package db.tables;
 
 import animals.AbsAnimal;
 import animals.AnimalList;
+import app.Funcs;
 import data.AnimalTypesData;
 import factory.FactoryAnimal;
+import me.tongfei.progressbar.ProgressBar;
 
 
 import java.sql.ResultSet;
@@ -41,7 +43,8 @@ public class AnimalTable extends AbsTable{
         switchUpdateStatus(true);
     }
 
-    public void delete(int id) {
+    @Override
+    public void deleteWhereId(int id) {
         String query = String.format( "DELETE FROM %s WHERE id = " + id +";" , TABLE_NAME,  id );
         // System.out.println(query);
         dbConnect.execute(query);
@@ -54,9 +57,8 @@ public class AnimalTable extends AbsTable{
         //создаем список животных
         AnimalList listAnimals = new AnimalList();
 
-        try (ResultSet resultSet = dbConnect.executeQuery(String.format("SELECT * FROM %s;", TABLE_NAME))) {
+        try (ResultSet resultSet = selectAll()) {
             while (resultSet.next()) {
-
                 //создаём экземпляр фабрики
                 FactoryAnimal factoryAnimal = new FactoryAnimal();
                 //создаём экземпляр дочернего класса через фабрику
@@ -71,8 +73,10 @@ public class AnimalTable extends AbsTable{
 
                 //загружаем животного в список животных
                 listAnimals.setListAnimals(createdAnimal);
+
             }
         }
+
 
         switchUpdateStatus(false);
         return listAnimals;
