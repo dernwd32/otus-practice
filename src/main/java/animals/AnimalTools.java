@@ -144,7 +144,7 @@ public class AnimalTools {
             try (ResultSet animalById = animalTable.selectWhereId(Integer.parseInt(input))) {
                 //проверяем наличие такого id в базе
                 if (animalById.next()) {
-                    miscFuncs.loader(2);
+                    miscFuncs.loader(3);
 
                     System.out.println( "\u001B[33mВыбранная для изменения запись: \u001b[3m"
                             + miscFuncs.firstLetterCapitalize(animalById.getString("type")) + "#"
@@ -170,6 +170,7 @@ public class AnimalTools {
 
                    break;
                 } else {
+                    miscFuncs.loader(1);
                     System.out.println("Несуществующий id.");
                 }
 
@@ -223,7 +224,7 @@ public class AnimalTools {
                     }
                 });
         miscFuncs.loader(1);
-        System.out.println(deletedList);
+        System.out.print(deletedList);
 
     }
 }
