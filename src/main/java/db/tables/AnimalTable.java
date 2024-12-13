@@ -77,7 +77,6 @@ public class AnimalTable extends AbsTable{
             }
         }
 
-
         switchUpdateStatus(false);
         return listAnimals;
     }

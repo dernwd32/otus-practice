@@ -10,7 +10,7 @@ public class Cat extends AbsAnimal {
 
     @Override
     public void say() {
-        System.out.print("Мяу");
+        System.out.println("-- Мяу");
     }
 
 }

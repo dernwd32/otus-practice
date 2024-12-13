@@ -82,12 +82,13 @@ public class AnimalTools {
     }
 
     public void addAnimal() {
-
+        Funcs miscFuncs = new Funcs();
         //создаём экземпляр фабрики
         FactoryAnimal factoryAnimal = new FactoryAnimal();
 
         //Создаём объект таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
+
 
         //вызываем метод, возвращающий HashMap с введёнными параметрами животного
         Map<String,Object> animalValues = inputAnimal();
@@ -108,9 +109,11 @@ public class AnimalTools {
 
         if (createdAnimal != null) {
             //пишем в базу
+            miscFuncs.loader(0);
             animalTable.insert(createdAnimal, type);
-            System.out.print("Животное типа " + type
-                    + " успешно порождено. И сказало оно: \n -- ");
+            miscFuncs.loader(1);
+            System.out.println("Животное типа " + type
+                    + " успешно порождено. И сказало оно: ");
             createdAnimal.say();
         }
         //если в енаме добавили новую дочку, а на фабрике забыли, то фабрика вернула null =>
@@ -136,9 +139,13 @@ public class AnimalTools {
 
             if (input == null) break; //выход в главное меню через 'cancel'
 
+            miscFuncs.loader(0);
+
             try (ResultSet animalById = animalTable.selectWhereId(Integer.parseInt(input))) {
                 //проверяем наличие такого id в базе
                 if (animalById.next()) {
+                    miscFuncs.loader(2);
+
                     System.out.println( "\u001B[33mВыбранная для изменения запись: \u001b[3m"
                             + miscFuncs.firstLetterCapitalize(animalById.getString("type")) + "#"
                             + animalById.getString("id") + " "

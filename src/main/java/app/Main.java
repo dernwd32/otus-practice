@@ -28,12 +28,20 @@ public class Main {
         AnimalTools animalTools = new AnimalTools();
         //создаём экземпляр фабрики, чтоб избавиться от объявления статиком всего класса
         FactoryAnimal factoryAnimal = new FactoryAnimal();
+        Funcs miscFuncs = new Funcs();
+
 
         labelExit:
         for(;;) {
             // запрашиваем список из базы на старте и каждом возвращении в главное меню список из таблицы для счётчика
             // если были изменения записи
-            try { if (ifUpdated) listAnimals = animalTable.read(); }
+            try {
+                if (ifUpdated) {
+                    miscFuncs.loader(0);
+                    listAnimals = animalTable.read();
+                    miscFuncs.loader(3);
+                }
+            }
             catch (SQLException e) { throw new RuntimeException(e); }
 
             try {

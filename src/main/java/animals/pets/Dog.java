@@ -11,7 +11,7 @@ public class Dog extends AbsAnimal {
 
     @Override
     public void say() {
-        System.out.print("Гав");
+        System.out.println("-- Гав");
     }
 
 }

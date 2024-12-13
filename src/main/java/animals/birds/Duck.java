@@ -10,7 +10,7 @@ public class Duck extends AbsAnimal implements IFlying{
 
     @Override
     public void say() {
-        System.out.print("Кря");
+        System.out.println("-- Кря");
     }
 
 }
