@@ -2,7 +2,7 @@ package animals;
 
 import app.Funcs;
 
-public abstract class AbsAnimal {
+public abstract class AbstractAnimal {
     private String name;
     private int age;
     private float weight;
@@ -48,7 +48,7 @@ public abstract class AbsAnimal {
 
 
     //Конструктор задан здесь для того, чтоб указать наследникам "как надо".
-    protected AbsAnimal(String name, int age, float weight, String color, int dbId) {
+    protected AbstractAnimal(String name, int age, float weight, String color, int dbId) {
         this.name = name;
         this.age = age;
         this.weight = weight;

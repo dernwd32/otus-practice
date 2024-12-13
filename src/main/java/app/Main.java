@@ -1,16 +1,13 @@
 package app;
 
-import animals.AbsAnimal;
 import animals.AnimalList;
 import animals.AnimalTools;
-import data.AnimalTypesData;
 import data.MainMenuData;
 import db.tables.AnimalTable;
-import factory.FactoryAnimal;
+import factory.AnimalFactory;
 
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -27,7 +24,7 @@ public class Main {
         //EditAnimal editAnimal = new EditAnimal();
         AnimalTools animalTools = new AnimalTools();
         //создаём экземпляр фабрики, чтоб избавиться от объявления статиком всего класса
-        FactoryAnimal factoryAnimal = new FactoryAnimal();
+        AnimalFactory animalFactory = new AnimalFactory();
         Funcs miscFuncs = new Funcs();
 
 

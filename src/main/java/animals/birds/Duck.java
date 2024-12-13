@@ -1,8 +1,8 @@
 package animals.birds;
 
-import animals.AbsAnimal;
+import animals.AbstractAnimal;
 
-public class Duck extends AbsAnimal implements IFlying{
+public class Duck extends AbstractAnimal implements IFlying{
 
     public Duck(String name, int age, float weight, String color, int dbId) {
         super(name, age, weight, color, dbId);

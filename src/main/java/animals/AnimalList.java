@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class AnimalList {
 
-    private ArrayList<AbsAnimal> listAnimals = new ArrayList<>();
+    private ArrayList<AbstractAnimal> listAnimals = new ArrayList<>();
 
-    public void setListAnimals(AbsAnimal animal) {
+    public void setListAnimals(AbstractAnimal animal) {
         listAnimals.add(animal);
     }
 

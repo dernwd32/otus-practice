@@ -1,8 +1,8 @@
 package animals.pets;
 
-import animals.AbsAnimal;
+import animals.AbstractAnimal;
 
-public class Dog extends AbsAnimal {
+public class Dog extends AbstractAnimal {
 
 
     public Dog (String name, int age, float weight, String color, int dbId) {

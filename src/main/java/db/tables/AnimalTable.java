@@ -1,23 +1,21 @@
 package db.tables;
 
-import animals.AbsAnimal;
+import animals.AbstractAnimal;
 import animals.AnimalList;
-import app.Funcs;
 import data.AnimalTypesData;
-import factory.FactoryAnimal;
-import me.tongfei.progressbar.ProgressBar;
+import factory.AnimalFactory;
 
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AnimalTable extends AbsTable{
+public class AnimalTable extends AbstractTable {
     private static final String TABLE_NAME = "animals";
     public AnimalTable() {
         super(TABLE_NAME);
     }
 
-    public void insert(AbsAnimal animal, String type){
+    public void insert(AbstractAnimal animal, String type){
         dbConnect.execute(String.format("INSERT INTO %s (id, color, name, weight, type, age)"
                 + "VALUES(NULL, '%s', '%s', '%s', '%s', '%s')" ,
                 TABLE_NAME,
@@ -60,9 +58,9 @@ public class AnimalTable extends AbsTable{
         try (ResultSet resultSet = selectAll()) {
             while (resultSet.next()) {
                 //создаём экземпляр фабрики
-                FactoryAnimal factoryAnimal = new FactoryAnimal();
+                AnimalFactory animalFactory = new AnimalFactory();
                 //создаём экземпляр дочернего класса через фабрику
-                AbsAnimal createdAnimal = factoryAnimal.create(
+                AbstractAnimal createdAnimal = animalFactory.create(
                         AnimalTypesData.valueOf(resultSet.getString("type").toUpperCase()),
                         resultSet.getString("name"),
                         resultSet.getInt("age"),

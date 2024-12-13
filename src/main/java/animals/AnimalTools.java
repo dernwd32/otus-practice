@@ -3,7 +3,7 @@ package animals;
 import app.Funcs;
 import data.AnimalTypesData;
 import db.tables.AnimalTable;
-import factory.FactoryAnimal;
+import factory.AnimalFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,9 +84,9 @@ public class AnimalTools {
     public void addAnimal() {
         Funcs miscFuncs = new Funcs();
         //создаём экземпляр фабрики
-        FactoryAnimal factoryAnimal = new FactoryAnimal();
+        AnimalFactory animalFactory = new AnimalFactory();
 
-        //Создаём объект таблицы животных для выполнения запросов к ней
+        //Создаём экземпляр таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
 
 
@@ -98,7 +98,7 @@ public class AnimalTools {
         String type = animalValues.get("type").toString();
 
         //создаём экземпляр дочернего класса через фабрику
-        AbsAnimal createdAnimal = factoryAnimal.create(
+        AbstractAnimal createdAnimal = animalFactory.create(
                 AnimalTypesData.valueOf(type.toUpperCase()),
                 animalValues.get("name").toString(),
                 Integer.parseInt(animalValues.get("age").toString()),
@@ -195,6 +195,10 @@ public class AnimalTools {
 
         String[] ids = input.split(",");
 
+        StringBuilder deletedList = new StringBuilder();
+
+        miscFuncs.loader(0);
+
         Arrays.stream(ids)
                 .map(key -> key.trim()) //собираем со срезанными пробелами
                 .filter(key -> !key.isEmpty()) //выкидываем пустые значения id
@@ -206,17 +210,20 @@ public class AnimalTools {
 
                             //удаляем из базы
                             animalTable.deleteWhereId(thisId);
-                            System.out.print("Животное с id #" + thisId + " успешно удалено.\n");
+                            deletedList.append("Животное с id #").append(thisId)
+                                    .append(" успешно удалено.\n");
 
                         } else {
-                            System.out.println("Несуществующий id #" + thisId + ". Удаление невозможно.");
+                            deletedList.append("Несуществующий id #").append(thisId)
+                                    .append(". Удаление невозможно.\n");
                         }
 
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 });
-
+        miscFuncs.loader(1);
+        System.out.println(deletedList);
 
     }
 }

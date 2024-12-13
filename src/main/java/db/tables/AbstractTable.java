@@ -6,11 +6,11 @@ import db.MySQLConnect;
 import java.sql.ResultSet;
 import java.util.List;
 
-abstract class AbsTable implements ITable{
+abstract class AbstractTable implements ITable{
     protected IDBConnect dbConnect;
     private String tableName;
 
-    public AbsTable(String tableName) {
+    public AbstractTable(String tableName) {
         dbConnect = new MySQLConnect();
         this.tableName = tableName;
     }
