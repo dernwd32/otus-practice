@@ -5,6 +5,7 @@ public enum MainMenuData {
     ADD,
     EDIT,
     LIST,
+    SEARCH,
     DELETE,
     EXIT;
 
@@ -13,8 +14,9 @@ public enum MainMenuData {
             case "add", "создать", "добавить", "сотворить чудо", "1" -> ADD;
             case "edit", "редактировать", "изменить", "2" -> EDIT;
             case "list", "список", "показать", "3" -> LIST;
-            case "delete", "удалить", "убрать", "4" -> DELETE;
-            case "exit", "выход", "изыди", "5" -> EXIT;
+            case "search", "поиск", "найти", "4" -> SEARCH;
+            case "delete", "удалить", "убрать", "5" -> DELETE;
+            case "exit", "выход", "изыди", "6" -> EXIT;
             default -> throw new IllegalStateException();
         };
     }

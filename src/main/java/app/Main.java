@@ -7,8 +7,11 @@ import db.tables.AnimalTable;
 import factory.AnimalFactory;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     //булева переменная, отвечающая далее на вопрос - были ли обновления в таблице, надо ли заново считывать
@@ -59,6 +62,10 @@ public class Main {
                         animalTools.editAnimal();
                     }
                     case LIST -> listAnimals.printListAnimals();
+                    case SEARCH -> {
+                        //listAnimals.printTableListAnimals();
+                        animalTools.searchAnimal();
+                    }
                     case DELETE -> {
                         listAnimals.printTableListAnimals();
                         animalTools.deleteAnimal();

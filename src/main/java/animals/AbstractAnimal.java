@@ -66,12 +66,7 @@ public abstract class AbstractAnimal {
                         miscFuncs.floatTemplate(weight), color);
     }
 
-    public String toTableTr(String type) {
-        //return "%-10s | %-25s | %-10s | %-10s | %-10s |" .formatted(dbId, name, age, miscFuncs.floatTemplate(weight), color);
-        return String.format("%-25s | %-10s | %-10s | %-10s | %s%-8s ",
-               name, age, miscFuncs.floatTemplate(weight), color,   type+"#", "\u001B[36m" + dbId + "\u001B[0m");
 
-    }
 
 
 }

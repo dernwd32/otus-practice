@@ -2,6 +2,7 @@ package animals;
 
 import app.Funcs;
 import data.AnimalTypesData;
+import data.SearchFilterData;
 import db.tables.AnimalTable;
 import factory.AnimalFactory;
 
@@ -181,6 +182,55 @@ public class AnimalTools {
         }
     }
 
+    public void searchAnimal() {
+        //Создаём экземпляр таблицы животных для выполнения запросов к ней
+        AnimalTable animalTable = new AnimalTable();
+        AnimalList animalList = new AnimalList();
+        Funcs miscFuncs = new Funcs();
+
+        List<String> listOptions = Arrays.stream(
+                        SearchFilterData.values())
+                .map(option -> (option.name().toLowerCase()))
+                .toList();
+        String searchType;
+        String searchValue;
+
+        for(;;) {
+            System.out.println("\u001b[36;1mВыберите поле для поиска:\u001B[0m");
+            System.out.println(String.join(", ", listOptions));
+            System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
+
+            Scanner console = new Scanner(System.in);
+            searchType = console.nextLine().toLowerCase().trim();
+
+            if (searchType.equalsIgnoreCase("cancel")) return; //выход через 'cancel'
+            if (!listOptions.contains(searchType))
+                System.out.println("Некорректный выбор поля: " + searchType);
+            else {
+                System.out.println("Поиск по полю: " + searchType);
+                break;
+            }
+        }
+
+        System.out.println("\u001b[36;1mВведите значение для поиска:\u001B[0m");
+        System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
+
+        Scanner console = new Scanner(System.in);
+        searchValue = console.nextLine().toLowerCase().trim();
+        System.out.println("Поиск по полю " + searchType + " со значением " + searchValue);
+        miscFuncs.loader(0);
+        ResultSet foundResultSet = animalTable.selectQ(
+                "SELECT * FROM TABLENAME WHERE " + searchType + " = '" + searchValue + "';");
+        miscFuncs.loader(1);
+        try {
+            animalList.printTableListAnimals(null, foundResultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
 
     public void deleteAnimal() {
         //Создаём экземпляр таблицы животных для выполнения запросов к ней
@@ -225,6 +275,14 @@ public class AnimalTools {
                 });
         miscFuncs.loader(1);
         System.out.print(deletedList);
+
+    }
+
+    public String toTableTr(String name, int age, float weight, String color, String type, int id) {
+        //return "%-10s | %-25s | %-10s | %-10s | %-10s |" .formatted(dbId, name, age, miscFuncs.floatTemplate(weight), color);
+        Funcs miscFuncs = new Funcs();
+        return String.format("%-25s | %-10s | %-10s | %-10s | %s%-8s ",
+                name, age, miscFuncs.floatTemplate(weight), color,   type+"#", "\u001B[36m" + id + "\u001B[0m");
 
     }
 }
