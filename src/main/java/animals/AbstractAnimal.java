@@ -66,10 +66,29 @@ public abstract class AbstractAnimal {
                         miscFuncs.floatTemplate(weight), color);
     }
 
-    public String toTableTr(String type) {
+    public String toTableTr(String highlightColumn) {
+        String type = this.getClass().getSimpleName();
         //return "%-10s | %-25s | %-10s | %-10s | %-10s |" .formatted(dbId, name, age, miscFuncs.floatTemplate(weight), color);
-        return String.format("%-25s | %-10s | %-10s | %-10s | %s%-8s ",
-               name, age, miscFuncs.floatTemplate(weight), color,   type+"#", "\u001B[36m" + dbId + "\u001B[0m");
+
+        String hName = name;
+        String hAge = String.valueOf(age);
+        String hWeight = miscFuncs.floatTemplate(weight);
+        String hColor = color;
+        String hType = type;
+        String hId = String.valueOf(dbId);
+        String highlightFormat = "\u001B[36m%s\u001B[0m";
+
+        switch (highlightColumn) {
+            case "name" -> hName = highlightFormat.formatted(name);
+            case "age" -> hAge = highlightFormat.formatted(age);
+            case "weight" -> hWeight = highlightFormat.formatted(miscFuncs.floatTemplate(weight));
+            case "color" -> hColor = highlightFormat.formatted(color);
+            case "type" -> hType = highlightFormat.formatted(type);
+            case "id" -> hId = highlightFormat.formatted(dbId);
+        }
+
+        return String.format("%-25s | %-10s | %-10s | %-10s | %s#%-8s ",
+               hName, hAge, hWeight, hColor, hType, hId);
 
     }
 

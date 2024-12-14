@@ -1,9 +1,5 @@
 package animals;
 
-import data.AnimalTypesData;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,24 +32,23 @@ public class AnimalList {
     }
 
     public void printTableListAnimals() {
-
-            printTableListAnimals(listAnimals); //дефолтный список и далее через оверлоад
-
+            printTableListAnimals(listAnimals, "id"); //дефолтный список и далее через оверлоад
     }
 
-    public void printTableListAnimals(ArrayList<AbstractAnimal> listAn) {
+    public void printTableListAnimals(ArrayList<AbstractAnimal> listAn, String highlightColumn) {
 
         String thRow = String.format("%-25s | %-10s | %-10s | %-10s | %-10s",
-                "name", "age", "weight", "color", "type#\u001B[36mid\u001B[0m")
+                "name", "age", "weight", "color", "type#id")
                 + "\n"
                 + "-----------------------------------------------------------------------";
+
 
         if (!Objects.isNull(listAn)) {
             if (listAn.isEmpty()) System.out.println("Список животных пуст.");
             else {
                 System.out.println(thRow);
                 listAn.forEach(thisAnimal -> System.out.println(
-                                thisAnimal.toTableTr(thisAnimal.getClass().getSimpleName())
+                                thisAnimal.toTableTr(highlightColumn)
                         )
                 );
             }

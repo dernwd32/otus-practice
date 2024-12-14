@@ -247,7 +247,7 @@ public class AnimalTools {
                 animalList.setListOfFoundAnimalsAnimals(createdAnimal);
             }
         }
-        animalList.printTableListAnimals(animalList.getListOfFoundAnimals());
+        animalList.printTableListAnimals(animalList.getListOfFoundAnimals(), searchType);
 
     }
 

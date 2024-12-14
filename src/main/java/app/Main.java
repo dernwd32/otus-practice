@@ -23,11 +23,9 @@ public class Main {
         AnimalList listAnimals = new AnimalList();
         //Создаём объект таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
-        //создаем объект EditAnimal для вызова методов изменения объекта
-        //EditAnimal editAnimal = new EditAnimal();
+        //создаем объект animalTools для вызова методов изменения объекта
         AnimalTools animalTools = new AnimalTools();
-        //создаём экземпляр фабрики, чтоб избавиться от объявления статиком всего класса
-        AnimalFactory animalFactory = new AnimalFactory();
+
         Funcs miscFuncs = new Funcs();
 
 
@@ -63,7 +61,6 @@ public class Main {
                     }
                     case LIST -> listAnimals.printListAnimals();
                     case SEARCH -> {
-                        //listAnimals.printTableListAnimals();
                         try {
                             animalTools.searchAnimal();
                         } catch (SQLException e) {
