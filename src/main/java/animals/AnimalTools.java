@@ -182,10 +182,11 @@ public class AnimalTools {
         }
     }
 
-    public void searchAnimal() {
+    public void searchAnimal() throws SQLException {
         //Создаём экземпляр таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
         AnimalList animalList = new AnimalList();
+        AnimalFactory animalFactory = new AnimalFactory();
         Funcs miscFuncs = new Funcs();
 
         List<String> listOptions = Arrays.stream(
@@ -207,7 +208,7 @@ public class AnimalTools {
             if (!listOptions.contains(searchType))
                 System.out.println("Некорректный выбор поля: " + searchType);
             else {
-                System.out.println("Поиск по полю: " + searchType);
+                System.out.println("\u001B[33mПоиск по полю: " + searchType + "\u001B[0m");
                 break;
             }
         }
@@ -216,19 +217,37 @@ public class AnimalTools {
         System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
 
         Scanner console = new Scanner(System.in);
-        searchValue = console.nextLine().toLowerCase().trim();
-        System.out.println("Поиск по полю " + searchType + " со значением " + searchValue);
+        searchValue = console.nextLine().trim();
+        System.out.println("\u001B[33mПоиск по полю " + searchType + " со значением " + searchValue + "\u001B[0m");
         miscFuncs.loader(0);
-        ResultSet foundResultSet = animalTable.selectQ(
-                "SELECT * FROM TABLENAME WHERE " + searchType + " = '" + searchValue + "';");
-        miscFuncs.loader(1);
-        try {
-            animalList.printTableListAnimals(null, foundResultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (ResultSet foundResultSet = animalTable.selectQ(
+                "SELECT * FROM TABLENAME WHERE " + searchType + " = '" + searchValue + "';")) {
+            miscFuncs.loader(1);
+
+            while (foundResultSet.next()) {
+                Map<String, Object> animalValues = new HashMap<>();
+                animalValues.put("type", foundResultSet.getString("type"));
+                animalValues.put("name", foundResultSet.getString("name"));
+                animalValues.put("age", foundResultSet.getInt("age"));
+                animalValues.put("weight", foundResultSet.getFloat("weight"));
+                animalValues.put("color", foundResultSet.getString("color"));
+                animalValues.put("id", foundResultSet.getInt("id"));
+
+                String type = animalValues.get("type").toString();
+
+                //создаём экземпляр дочернего класса через фабрику
+                AbstractAnimal createdAnimal = animalFactory.create(
+                        AnimalTypesData.valueOf(type.toUpperCase()),
+                        animalValues.get("name").toString(),
+                        Integer.parseInt(animalValues.get("age").toString()),
+                        Float.parseFloat(animalValues.get("weight").toString()),
+                        animalValues.get("color").toString(),
+                        Integer.parseInt(animalValues.get("id").toString())
+                );
+                animalList.setListOfFoundAnimalsAnimals(createdAnimal);
+            }
         }
-
-
+        animalList.printTableListAnimals(animalList.getListOfFoundAnimals());
 
     }
 
@@ -278,11 +297,5 @@ public class AnimalTools {
 
     }
 
-    public String toTableTr(String name, int age, float weight, String color, String type, int id) {
-        //return "%-10s | %-25s | %-10s | %-10s | %-10s |" .formatted(dbId, name, age, miscFuncs.floatTemplate(weight), color);
-        Funcs miscFuncs = new Funcs();
-        return String.format("%-25s | %-10s | %-10s | %-10s | %s%-8s ",
-                name, age, miscFuncs.floatTemplate(weight), color,   type+"#", "\u001B[36m" + id + "\u001B[0m");
 
-    }
 }

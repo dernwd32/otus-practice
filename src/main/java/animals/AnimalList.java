@@ -12,9 +12,16 @@ import java.util.Objects;
 public class AnimalList {
 
     private ArrayList<AbstractAnimal> listAnimals = new ArrayList<>();
+    private ArrayList<AbstractAnimal> listOfFoundAnimals = new ArrayList<>();
 
     public void setListAnimals(AbstractAnimal animal) {
         listAnimals.add(animal);
+    }
+    public ArrayList<AbstractAnimal> getListOfFoundAnimals() {
+        return listOfFoundAnimals;
+    }
+    public void setListOfFoundAnimalsAnimals(AbstractAnimal animal) {
+        listOfFoundAnimals.add(animal);
     }
 
     public void printListAnimals() {
@@ -29,52 +36,29 @@ public class AnimalList {
     }
 
     public void printTableListAnimals() {
-        try {
-            printTableListAnimals(listAnimals, null); //дефолтный список и далее через оверлоад
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+            printTableListAnimals(listAnimals); //дефолтный список и далее через оверлоад
+
     }
 
-    public void printTableListAnimals(ArrayList<AbstractAnimal> listAn, ResultSet listRs) throws SQLException {
-        AnimalTools animalTools = new AnimalTools();
+    public void printTableListAnimals(ArrayList<AbstractAnimal> listAn) {
+
         String thRow = String.format("%-25s | %-10s | %-10s | %-10s | %-10s",
                 "name", "age", "weight", "color", "type#\u001B[36mid\u001B[0m")
                 + "\n"
                 + "-----------------------------------------------------------------------";
 
-
         if (!Objects.isNull(listAn)) {
             if (listAn.isEmpty()) System.out.println("Список животных пуст.");
             else {
                 System.out.println(thRow);
-                listAn.forEach(thisAnimal -> System.out.println(animalTools.toTableTr(
-                        thisAnimal.getName(),
-                        thisAnimal.getAge(),
-                        thisAnimal.getWeight(),
-                        thisAnimal.getColor(),
-                        thisAnimal.getClass().getSimpleName(),
-                        thisAnimal.getDbId()
-                )));
+                listAn.forEach(thisAnimal -> System.out.println(
+                                thisAnimal.toTableTr(thisAnimal.getClass().getSimpleName())
+                        )
+                );
             }
         }
-        if (!Objects.isNull(listRs)) {
-            if (!listRs.next()) System.out.println("Список животных пуст.");
-            else {
-                System.out.println(thRow);
-                while (listRs.next()) {
 
-                    System.out.println(animalTools.toTableTr(
-                            listRs.getString("name"),
-                            listRs.getInt("age"),
-                            listRs.getFloat("weight"),
-                            listRs.getString("color"),
-                            listRs.getString("type"),
-                            listRs.getInt("id")
-                    ));
-                }
-            }
-        }
 
     }
 

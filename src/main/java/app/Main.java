@@ -64,7 +64,11 @@ public class Main {
                     case LIST -> listAnimals.printListAnimals();
                     case SEARCH -> {
                         //listAnimals.printTableListAnimals();
-                        animalTools.searchAnimal();
+                        try {
+                            animalTools.searchAnimal();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     case DELETE -> {
                         listAnimals.printTableListAnimals();
