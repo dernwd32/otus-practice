@@ -14,13 +14,14 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>libs/</classpathPrefix>
-              <mainClass>app.Main</mainClass>
+              <mainClass>Main</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven.shade.plugin.version}</version>
         <executions>
           <execution>
             <id>shade</id>
@@ -30,7 +31,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>app.Main</mainClass>
+                  <mainClass>Main</mainClass>
                   <manifestEntries>
                     <Multi-Release>true</Multi-Release>
                   </manifestEntries>
@@ -43,9 +44,11 @@
     </plugins>
   </build>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <mysql.jdbc.plugin.version>9.1.0</mysql.jdbc.plugin.version>
     <maven.compiler.target>23</maven.compiler.target>
     <maven.compiler.source>23</maven.compiler.source>
     <maven.jar.plugin.version>3.4.2</maven.jar.plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.shade.plugin.version>3.6.0</maven.shade.plugin.version>
   </properties>
 </project>

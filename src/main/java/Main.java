@@ -1,21 +1,15 @@
-package app;
-
 import animals.AnimalList;
 import animals.AnimalTools;
+import app.Funcs;
 import data.MainMenuData;
 import db.tables.AnimalTable;
-import factory.AnimalFactory;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
-    //булева переменная, отвечающая далее на вопрос - были ли обновления в таблице, надо ли заново считывать
-    public static boolean ifUpdated = true;
+
 
     public static void main(String[] args) {
 
@@ -34,7 +28,7 @@ public class Main {
             // запрашиваем список из базы на старте и каждом возвращении в главное меню список из таблицы для счётчика
             // если были изменения записи
             try {
-                if (ifUpdated) {
+                if (AnimalList.ifUpdated) {
                     miscFuncs.loader(0);
                     listAnimals = animalTable.read();
                     miscFuncs.loader(3);

@@ -2,6 +2,8 @@ package animals;
 
 import app.Funcs;
 
+import java.util.*;
+
 public abstract class AbstractAnimal {
     private String name;
     private int age;
@@ -68,27 +70,23 @@ public abstract class AbstractAnimal {
 
     public String toTableTr(String highlightColumn) {
         String type = this.getClass().getSimpleName();
-        //return "%-10s | %-25s | %-10s | %-10s | %-10s |" .formatted(dbId, name, age, miscFuncs.floatTemplate(weight), color);
-
-        String hName = name;
-        String hAge = String.valueOf(age);
-        String hWeight = miscFuncs.floatTemplate(weight);
-        String hColor = color;
-        String hType = type;
-        String hId = String.valueOf(dbId);
         String highlightFormat = "\u001B[36m%s\u001B[0m";
 
-        switch (highlightColumn) {
-            case "name" -> hName = highlightFormat.formatted(name);
-            case "age" -> hAge = highlightFormat.formatted(age);
-            case "weight" -> hWeight = highlightFormat.formatted(miscFuncs.floatTemplate(weight));
-            case "color" -> hColor = highlightFormat.formatted(color);
-            case "type" -> hType = highlightFormat.formatted(type);
-            case "id" -> hId = highlightFormat.formatted(dbId);
-        }
+        Map<String,String> columns = new LinkedHashMap<>();
+        columns.put("id", "%-5s");
+        columns.put("type", "%-8s");
+        columns.put("name", "%-25s");
+        columns.put("age", "%-10s");
+        columns.put("weight", "%-10s");
+        columns.put("color", "%-10s");
+        columns.forEach((key, value) -> {
+            if (key.equals(highlightColumn))
+                columns.replace(key, highlightFormat.formatted(value));
+        });
 
-        return String.format("%-25s | %-10s | %-10s | %-10s | %s#%-8s ",
-               hName, hAge, hWeight, hColor, hType, hId);
+        String template = String.join(" | ", columns.values());
+        return String.format(template,
+                dbId, type, name, age, miscFuncs.floatTemplate(weight), color);
 
     }
 

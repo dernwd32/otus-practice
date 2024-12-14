@@ -10,6 +10,9 @@ public class AnimalList {
     private ArrayList<AbstractAnimal> listAnimals = new ArrayList<>();
     private ArrayList<AbstractAnimal> listOfFoundAnimals = new ArrayList<>();
 
+    //булева переменная, отвечающая далее на вопрос - были ли обновления в таблице, надо ли ее заново считывать в listAnimals
+    public static boolean ifUpdated = true;
+
     public void setListAnimals(AbstractAnimal animal) {
         listAnimals.add(animal);
     }
@@ -37,10 +40,10 @@ public class AnimalList {
 
     public void printTableListAnimals(ArrayList<AbstractAnimal> listAn, String highlightColumn) {
 
-        String thRow = String.format("%-25s | %-10s | %-10s | %-10s | %-10s",
-                "name", "age", "weight", "color", "type#id")
+        String thRow = String.format("%-5s | %-8s | %-25s | %-10s | %-10s | %-10s ",
+                "id", "type", "name", "age", "weight", "color")
                 + "\n"
-                + "-----------------------------------------------------------------------";
+                + "---------------------------------------------------------------------------------------";
 
 
         if (!Objects.isNull(listAn)) {

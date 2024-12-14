@@ -13,8 +13,8 @@ public class Settings {
         Map<String,String> prop = new HashMap<>();
 
         try {
-            //String rootDir = System.getProperty("user.dir");
-            String rootDir = "C:/Users/dernw/IdeaProjects/otus1";
+            String rootDir = System.getProperty("user.dir");
+            //String rootDir = "C:/Users/dernw/IdeaProjects/otus1";
             properties.load(new FileInputStream((rootDir
                     + "/src/main/resources/SQLSettings.properties")));
         } catch (IOException e) {
