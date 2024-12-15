@@ -263,7 +263,7 @@ public class AnimalTools {
                         animalValues.get("color").toString(),
                         Integer.parseInt(animalValues.get("id").toString())
                 );
-                animalList.setListOfFoundAnimalsAnimals(createdAnimal);
+                animalList.setListOfFoundAnimals(createdAnimal);
             }
         }
         animalList.printTableListAnimals(animalList.getListOfFoundAnimals(), searchField);

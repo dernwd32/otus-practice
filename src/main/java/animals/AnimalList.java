@@ -19,7 +19,7 @@ public class AnimalList {
     public ArrayList<AbstractAnimal> getListOfFoundAnimals() {
         return listOfFoundAnimals;
     }
-    public void setListOfFoundAnimalsAnimals(AbstractAnimal animal) {
+    public void setListOfFoundAnimals(AbstractAnimal animal) {
         listOfFoundAnimals.add(animal);
     }
 
@@ -29,7 +29,7 @@ public class AnimalList {
         else listAnimals.forEach(thisAnimal -> {
                 //чуть-чуть рефлексии для красивого вывода типа животного
                 System.out.print(thisAnimal.getClass().getSimpleName() + "#");
-                System.out.println(thisAnimal.toString());
+                System.out.println(thisAnimal); //.toString() не нужен, вызывается по умолчанию
             });
 
     }
