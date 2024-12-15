@@ -36,7 +36,6 @@ abstract class AbstractTable implements ITable{
     }
     @Override
     public ResultSet selectQ(String query) {
-        //произвольный запрос в одну таблицу с автоподстановкой имени таблицы
-        return dbConnect.executeQuery(query.replace("TABLENAME", tableName));
+        return dbConnect.executeQuery(String.format(query, tableName));
     }
 }

@@ -1,10 +1,11 @@
 package animals;
 
-import app.Funcs;
+import tools.Funcs;
 import data.AnimalTypesData;
 import data.SearchFilterData;
 import db.tables.AnimalTable;
 import factory.AnimalFactory;
+import tools.Loader;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,7 +84,7 @@ public class AnimalTools {
     }
 
     public void addAnimal() {
-        Funcs miscFuncs = new Funcs();
+        Loader loader = new Loader();
         //создаём экземпляр фабрики
         AnimalFactory animalFactory = new AnimalFactory();
 
@@ -110,9 +111,9 @@ public class AnimalTools {
 
         if (createdAnimal != null) {
             //пишем в базу
-            miscFuncs.loader(0);
+            loader.loader(0);
             animalTable.insert(createdAnimal, type);
-            miscFuncs.loader(1);
+            loader.loader(1);
             System.out.println("Животное типа " + type
                     + " успешно порождено. И сказало оно: ");
             createdAnimal.say();
@@ -128,6 +129,7 @@ public class AnimalTools {
         AnimalTable animalTable = new AnimalTable();
 
         Funcs miscFuncs = new Funcs();
+        Loader loader = new Loader();
 
        // boolean existsId = false;
         while (true) {
@@ -140,12 +142,12 @@ public class AnimalTools {
 
             if (input == null) break; //выход в главное меню через 'cancel'
 
-            miscFuncs.loader(0);
+            loader.loader(0);
 
             try (ResultSet animalById = animalTable.selectWhereId(Integer.parseInt(input))) {
                 //проверяем наличие такого id в базе
                 if (animalById.next()) {
-                    miscFuncs.loader(3);
+                    loader.loader(3);
 
                     System.out.println( "\u001B[33mВыбранная для изменения запись: \u001b[3m"
                             + miscFuncs.firstLetterCapitalize(animalById.getString("type")) + "#"
@@ -171,7 +173,7 @@ public class AnimalTools {
 
                    break;
                 } else {
-                    miscFuncs.loader(1);
+                    loader.loader(1);
                     System.out.println("Несуществующий id.");
                 }
 
@@ -187,42 +189,59 @@ public class AnimalTools {
         AnimalTable animalTable = new AnimalTable();
         AnimalList animalList = new AnimalList();
         AnimalFactory animalFactory = new AnimalFactory();
-        Funcs miscFuncs = new Funcs();
+        Loader loader = new Loader();
 
         List<String> listOptions = Arrays.stream(
                         SearchFilterData.values())
                 .map(option -> (option.name().toLowerCase()))
                 .toList();
-        String searchType;
-        String searchValue;
 
+        String searchField, searchValue, searchType, searchString, descr;
+
+        //выбор поля
         for(;;) {
-            System.out.println("\u001b[36;1mВыберите поле для поиска:\u001B[0m");
-            System.out.println(String.join(", ", listOptions));
-            System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
+            System.out.print("\u001b[36;1mВыберите поле для поиска:\u001B[0m "
+                    + String.join(", ", listOptions)
+                    + "\n\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)\n");
 
             Scanner console = new Scanner(System.in);
-            searchType = console.nextLine().toLowerCase().trim();
+            searchField = console.nextLine().toLowerCase().trim();
 
-            if (searchType.equalsIgnoreCase("cancel")) return; //выход через 'cancel'
-            if (!listOptions.contains(searchType))
-                System.out.println("Некорректный выбор поля: " + searchType);
-            else {
-                System.out.println("\u001B[33mПоиск по полю: " + searchType + "\u001B[0m");
+            if (searchField.equalsIgnoreCase("cancel")) return; //выход через 'cancel'
+            if (!listOptions.contains(searchField))
+                System.out.println("Некорректный выбор поля: " + searchField);
+            else break;
+        }
+
+        //выбор значения
+        System.out.println("\u001b[36;1mВведите значение для поиска:\u001B[0m \n"
+                + "\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
+        Scanner consoleValue = new Scanner(System.in);
+        searchValue = consoleValue.nextLine().trim();
+
+        //выбор типа поиска
+        for (;;) {
+            System.out.println("\u001b[36;1mВведите тип поиска (= или %):\u001B[0m \n"
+                    + "\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
+            Scanner console = new Scanner(System.in);
+            searchType = console.nextLine().trim();
+            if (searchType.equals("=")) {
+                searchString = " = '" + searchValue + "'";
+                descr = "= " + searchValue;
+                break;
+            }
+            if (searchType.equals("%")) {
+                searchString = " LIKE '%%" + searchValue + "%%'";
+                descr = "LIKE " + searchValue;
                 break;
             }
         }
 
-        System.out.println("\u001b[36;1mВведите значение для поиска:\u001B[0m");
-        System.out.println("\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
-
-        Scanner console = new Scanner(System.in);
-        searchValue = console.nextLine().trim();
-        System.out.println("\u001B[33mПоиск по полю " + searchType + " со значением " + searchValue + "\u001B[0m");
-        miscFuncs.loader(0);
+        System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + descr + "\u001B[0m");
+        loader.loader(0);
         try (ResultSet foundResultSet = animalTable.selectQ(
-                "SELECT * FROM TABLENAME WHERE " + searchType + " = '" + searchValue + "';")) {
-            miscFuncs.loader(1);
+                "SELECT * FROM %s WHERE " + searchField + searchString +";")) {
+            loader.loader(1);
 
             while (foundResultSet.next()) {
                 Map<String, Object> animalValues = new HashMap<>();
@@ -247,7 +266,7 @@ public class AnimalTools {
                 animalList.setListOfFoundAnimalsAnimals(createdAnimal);
             }
         }
-        animalList.printTableListAnimals(animalList.getListOfFoundAnimals(), searchType);
+        animalList.printTableListAnimals(animalList.getListOfFoundAnimals(), searchField);
 
     }
 
@@ -255,6 +274,7 @@ public class AnimalTools {
         //Создаём экземпляр таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
         Funcs miscFuncs = new Funcs();
+        Loader loader = new Loader();
 
         String input = miscFuncs.inputWithRegexValidate(
                 "^[0-9 ,]+$",
@@ -267,7 +287,7 @@ public class AnimalTools {
 
         StringBuilder deletedList = new StringBuilder();
 
-        miscFuncs.loader(0);
+        loader.loader(0);
 
         Arrays.stream(ids)
                 .map(key -> key.trim()) //собираем со срезанными пробелами
@@ -292,7 +312,7 @@ public class AnimalTools {
                         throw new RuntimeException(e);
                     }
                 });
-        miscFuncs.loader(1);
+        loader.loader(1);
         System.out.print(deletedList);
 
     }

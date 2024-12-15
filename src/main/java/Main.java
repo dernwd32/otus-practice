@@ -1,8 +1,9 @@
 import animals.AnimalList;
 import animals.AnimalTools;
-import app.Funcs;
+import tools.Funcs;
 import data.MainMenuData;
 import db.tables.AnimalTable;
+import tools.Loader;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ public class Main {
         AnimalTools animalTools = new AnimalTools();
 
         Funcs miscFuncs = new Funcs();
+        Loader loader = new Loader();
 
 
         labelExit:
@@ -29,9 +31,9 @@ public class Main {
             // если были изменения записи
             try {
                 if (AnimalList.ifUpdated) {
-                    miscFuncs.loader(0);
+                    loader.loader(0);
                     listAnimals = animalTable.read();
-                    miscFuncs.loader(3);
+                    loader.loader(3);
                 }
             }
             catch (SQLException e) { throw new RuntimeException(e); }

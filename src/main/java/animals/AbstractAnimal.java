@@ -1,6 +1,6 @@
 package animals;
 
-import app.Funcs;
+import tools.Funcs;
 
 import java.util.*;
 
@@ -70,8 +70,9 @@ public abstract class AbstractAnimal {
 
     public String toTableTr(String highlightColumn) {
         String type = this.getClass().getSimpleName();
-        String highlightFormat = "\u001B[36m%s\u001B[0m";
+        String highlightTemplate = "\u001B[36m%s\u001B[0m";
 
+        //LinkedHashMap потому что сохраняет порядок, в котором добавлялись элементы в отличие от HashMap
         Map<String,String> columns = new LinkedHashMap<>();
         columns.put("id", "%-5s");
         columns.put("type", "%-8s");
@@ -81,7 +82,7 @@ public abstract class AbstractAnimal {
         columns.put("color", "%-10s");
         columns.forEach((key, value) -> {
             if (key.equals(highlightColumn))
-                columns.replace(key, highlightFormat.formatted(value));
+                columns.replace(key, highlightTemplate.formatted(value));
         });
 
         String template = String.join(" | ", columns.values());

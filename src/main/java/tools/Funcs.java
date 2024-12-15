@@ -1,10 +1,9 @@
-package app;
+package tools;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class Funcs {
 
@@ -44,10 +43,6 @@ public class Funcs {
         }
     }
 
-    public void loader(int rLines){
-        if (rLines==0) System.out.print("\t\u001b[3mПодождите, идёт загрузка...\u001B[0m");
-        else System.out.print("\r".repeat(rLines));
-    }
 
 
 }
