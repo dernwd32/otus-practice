@@ -5,11 +5,11 @@ import java.sql.*;
 import java.util.Map;
 
 public class MySQLConnect implements IDBConnect {
-    private Connection connection;
-    private Statement statement;
+    private static Connection connection = null;
+    private static Statement statement = null;
     //считываем настройки подключения из файла
-    private Settings confReader = new Settings();
-    private Map<String,String> confData = confReader.getSettings();
+    private Settings settings = new Settings();
+    private Map<String,String> confData = settings.getSettings();
 
     //открытие подключения к бд
     private void open(){
@@ -54,5 +54,22 @@ public class MySQLConnect implements IDBConnect {
             e.printStackTrace();
         }
         return null;
+    }
+   // @Override
+    public void close()  {
+        if (statement!=null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (connection!=null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

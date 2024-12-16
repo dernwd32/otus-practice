@@ -1,5 +1,6 @@
 import animals.AnimalList;
 import animals.AnimalTools;
+import db.MySQLConnect;
 import misc.Funcs;
 import data.MainMenuData;
 import db.tables.AnimalTable;
@@ -20,6 +21,7 @@ public class Main {
         AnimalTable animalTable = new AnimalTable();
         //создаем объект animalTools для вызова методов изменения объекта
         AnimalTools animalTools = new AnimalTools();
+        MySQLConnect mySQLConnect = new MySQLConnect();
 
         Funcs miscFuncs = new Funcs();
         Loader loader = new Loader();
@@ -52,6 +54,7 @@ public class Main {
                 switch (action) {
                     case ADD -> animalTools.addAnimal();
                     case EDIT -> {
+                        mySQLConnect.close();
                         listAnimals.printTableListAnimals();
                         animalTools.editAnimal();
                     }
@@ -69,13 +72,15 @@ public class Main {
                     }
                     case EXIT -> {
                         System.out.println("Покедова!");
-                        break labelExit; //просто так оригинальнее, чем System.exit(0); хочу так! %)
+                        mySQLConnect.close();
+                        break labelExit;
                     }
                 }
 
             } catch (IllegalStateException e) {
                 System.out.println("Некорректный выбор.");
             }
+
 
         }
     }

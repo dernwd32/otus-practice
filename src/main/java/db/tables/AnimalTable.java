@@ -10,15 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AnimalTable extends AbstractTable {
-    private static final String TABLE_NAME = "animals";
+    private static final String TABLENAME = "animals";
     public AnimalTable() {
-        super(TABLE_NAME);
+        super(TABLENAME);
     }
 
     public void insert(AbstractAnimal animal, String type){
         dbConnect.execute(String.format("INSERT INTO %s (id, color, name, weight, type, age)"
                 + "VALUES(NULL, '%s', '%s', '%s', '%s', '%s')" ,
-                TABLE_NAME,
+                TABLENAME,
                 animal.getColor(),
                 animal.getName(),
                 animal.getWeight(),
@@ -32,7 +32,7 @@ public class AnimalTable extends AbstractTable {
         String query = String.format("UPDATE %s SET " +
                         "color = '%s', name = '%s', weight = '%s', type = '%s', " +
                         "age = '%s' WHERE id = %s;" ,
-                TABLE_NAME, color, name, weight, type, age,  id
+                TABLENAME, color, name, weight, type, age,  id
         );
 
        // System.out.println(query);
@@ -43,7 +43,7 @@ public class AnimalTable extends AbstractTable {
 
     @Override
     public void deleteWhereId(int id) {
-        String query = String.format( "DELETE FROM %s WHERE id = " + id +";" , TABLE_NAME,  id );
+        String query = String.format( "DELETE FROM %s WHERE id = " + id +";" , TABLENAME,  id );
         // System.out.println(query);
         dbConnect.execute(query);
 

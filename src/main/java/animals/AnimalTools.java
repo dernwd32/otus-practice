@@ -1,5 +1,6 @@
 package animals;
 
+import db.MySQLConnect;
 import misc.Funcs;
 import data.AnimalTypesData;
 import data.SearchFilterData;
@@ -7,6 +8,7 @@ import db.tables.AnimalTable;
 import factory.AnimalFactory;
 import misc.Loader;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -131,6 +133,7 @@ public class AnimalTools {
         Funcs miscFuncs = new Funcs();
         Loader loader = new Loader();
 
+
        // boolean existsId = false;
         while (true) {
 
@@ -221,26 +224,25 @@ public class AnimalTools {
 
         //выбор типа поиска
         for (;;) {
-            System.out.println("\u001b[36;1mВведите тип поиска (= или %):\u001B[0m \n"
+            Set<String> comparators = Set.of("=", "<", ">", "like");
+            System.out.println("\u001b[36;1mВведите тип поиска ("
+                    + String.join(", ", comparators)
+                    + "):\u001B[0m \n"
                     + "\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
             Scanner console = new Scanner(System.in);
             searchType = console.nextLine().trim();
-            if (searchType.equals("=")) {
-                searchString = " = '" + searchValue + "'";
-                descr = "= " + searchValue;
-                break;
-            }
-            if (searchType.equals("%")) {
-                searchString = " LIKE '%%" + searchValue + "%%'";
-                descr = "LIKE " + searchValue;
+            if (comparators.contains(searchType.toLowerCase())) {
+                searchString = searchField + " " + searchType + " '%" + searchValue + "%'";
+                if (!searchType.equalsIgnoreCase("like"))
+                    searchString = searchString.replace("%", "");
                 break;
             }
         }
 
-        System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + descr + "\u001B[0m");
+        System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + searchString + "\u001B[0m");
         loader.loader(0);
-        try (ResultSet foundResultSet = animalTable.selectQ(
-                "SELECT * FROM %s WHERE " + searchField + searchString +";")) {
+        try (ResultSet foundResultSet =animalTable.selectTemplate(null, new String[]{searchString})
+        ) {
             loader.loader(1);
 
             while (foundResultSet.next()) {

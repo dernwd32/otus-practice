@@ -38,4 +38,18 @@ abstract class AbstractTable implements ITable{
     public ResultSet selectQ(String query) {
         return dbConnect.executeQuery(String.format(query, tableName));
     }
+
+    //String[] columns - какие колонки выводить
+    //String... predicates - массив с условиями
+    public ResultSet selectTemplate(String[] columns, String... predicates ) {
+
+        String requestColumns, requestPredicates;
+
+        if (columns == null || columns.length == 0) requestColumns = "*";
+        else requestColumns = String.join(", ", columns);
+
+        if (predicates == null || predicates.length == 0) requestPredicates = "";
+        else requestPredicates = String.format("WHERE %s", String.join(" AND ", predicates));
+        return dbConnect.executeQuery(String.format("SELECT %s FROM %s %s", requestColumns, tableName, requestPredicates));
+    }
 }
