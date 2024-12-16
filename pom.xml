@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <maven.jar.plugin.version>3.4.2</maven.jar.plugin.version>
-        <mysql.jdbc.plugin.version>9.1.0</mysql.jdbc.plugin.version>
+        <mysql.jdbc.version>9.1.0</mysql.jdbc.version>
         <maven.shade.plugin.version>3.6.0</maven.shade.plugin.version>
     </properties>
 
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>${mysql.jdbc.plugin.version}</version>
+            <version>${mysql.jdbc.version}</version>
         </dependency>
 
         <dependency>

@@ -224,19 +224,31 @@ public class AnimalTools {
 
         //выбор типа поиска
         for (;;) {
-            Set<String> comparators = Set.of("=", "<", ">", "like");
-            System.out.println("\u001b[36;1mВведите тип поиска ("
+            String[] comparators = {"=", "<>", "<=", "<", ">", ">=", "between", "like"};
+            System.out.println("\u001b[36;1mВведите оператор сравнения ("
                     + String.join(", ", comparators)
                     + "):\u001B[0m \n"
                     + "\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
             Scanner console = new Scanner(System.in);
             searchType = console.nextLine().trim();
-            if (comparators.contains(searchType.toLowerCase())) {
+            if (Arrays.stream(comparators).toList().contains(searchType.toLowerCase())) {
                 searchString = searchField + " " + searchType + " '%" + searchValue + "%'";
+                if (searchType.equalsIgnoreCase("between")) {
+                    if (searchValue.trim().toLowerCase().matches("^\\d+ and \\d+$"))
+                    searchString = searchString.replace("'%", "").replace("%'", "");
+                    else {
+                        System.out.println("Значение поиска для оператора between " +
+                                "должно соответствовать шаблону \u001B[33m0 and 999\u001B[0m");
+                        return;
+                    }
+
+                }
                 if (!searchType.equalsIgnoreCase("like"))
                     searchString = searchString.replace("%", "");
+
                 break;
             }
+            else System.out.println("Выбран некорректный оператор сравнения!");
         }
 
         System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + searchString + "\u001B[0m");
