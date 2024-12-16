@@ -8,8 +8,8 @@ public class MySQLConnect implements IDBConnect {
     private static Connection connection = null;
     private static Statement statement = null;
     //считываем настройки подключения из файла
-    private Settings settings = new Settings();
-    private Map<String,String> confData = settings.getSettings();
+    private final Settings settings = new Settings();
+    private final Map<String,String> confData = settings.getSettings();
 
     //открытие подключения к бд
     private void open(){

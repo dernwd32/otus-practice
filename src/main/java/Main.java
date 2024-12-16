@@ -54,7 +54,6 @@ public class Main {
                 switch (action) {
                     case ADD -> animalTools.addAnimal();
                     case EDIT -> {
-                        mySQLConnect.close();
                         listAnimals.printTableListAnimals();
                         animalTools.editAnimal();
                     }

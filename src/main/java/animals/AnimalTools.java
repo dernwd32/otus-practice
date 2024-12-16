@@ -235,7 +235,7 @@ public class AnimalTools {
                 searchString = searchField + " " + searchType + " '%" + searchValue + "%'";
                 if (searchType.equalsIgnoreCase("between")) {
                     if (searchValue.trim().toLowerCase().matches("^\\d+ and \\d+$"))
-                    searchString = searchString.replace("'%", "").replace("%'", "");
+                        searchString = searchString.replace("'%", "").replace("%'", "");
                     else {
                         System.out.println("Значение поиска для оператора between " +
                                 "должно соответствовать шаблону \u001B[33m0 and 999\u001B[0m");
