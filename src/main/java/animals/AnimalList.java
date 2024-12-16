@@ -1,9 +1,8 @@
 package animals;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import misc.Templates;
+
+import java.util.*;
 
 public class AnimalList {
 
@@ -40,16 +39,19 @@ public class AnimalList {
 
     public void printTableListAnimals(ArrayList<AbstractAnimal> listAn, String highlightColumn) {
 
-        String thRow = String.format("%-5s | %-8s | %-25s | %-10s | %-10s | %-10s ",
-                "id", "type", "name", "age", "weight", "color")
-                + "\n"
-                + "---------------------------------------------------------------------------------------";
+        LinkedHashMap<String,String> columns = new Templates().tableTemplate();
 
+        String th = String.format(
+                        String.join(" | ", columns.values()) , //из значений Map собираем шаблон
+                        columns.keySet().toArray() //а из ключей собираем массив аргументов для .format
+                     )
+                + "\n"
+                + "---------------------------------------------------------------------";
 
         if (!Objects.isNull(listAn)) {
             if (listAn.isEmpty()) System.out.println("Список животных пуст.");
             else {
-                System.out.println(thRow);
+                System.out.println(th);
                 listAn.forEach(thisAnimal -> System.out.println(
                                 thisAnimal.toTableTr(highlightColumn)
                         )

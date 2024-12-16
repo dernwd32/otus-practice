@@ -1,11 +1,11 @@
 package animals;
 
-import tools.Funcs;
+import misc.Funcs;
 import data.AnimalTypesData;
 import data.SearchFilterData;
 import db.tables.AnimalTable;
 import factory.AnimalFactory;
-import tools.Loader;
+import misc.Loader;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

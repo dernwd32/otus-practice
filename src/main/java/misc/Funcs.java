@@ -1,4 +1,4 @@
-package tools;
+package misc;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -21,14 +21,7 @@ public class Funcs {
         else return "года";
     }
 
-    public String floatTemplate (float number) {
-        //используем US локаль, чтоб разделителем десятичным была точка, а не русская запятая
-        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
-        // настройка шаблона на 3 знака после запятой
-        DecimalFormat df = new DecimalFormat("#.###", otherSymbols);
-        // лучше, чем String.format("%.3f", weight), хотя бы потому что отрезает лишние нули
-        return df.format(number);
-    }
+
 
     public String inputWithRegexValidate(String regexRule, String questionText, String errorText) {
 

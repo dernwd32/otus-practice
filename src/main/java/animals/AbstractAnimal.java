@@ -1,6 +1,7 @@
 package animals;
 
-import tools.Funcs;
+import misc.Funcs;
+import misc.Templates;
 
 import java.util.*;
 
@@ -9,7 +10,7 @@ public abstract class AbstractAnimal {
     private int age;
     private float weight;
     private String color;
-    private int dbId;
+    private int id;
 
     //сеттеры и геттеры по факту не используются, сохранены для соответствия условиям задачи
     public String getName() {
@@ -36,9 +37,9 @@ public abstract class AbstractAnimal {
     public void setColor(String color) {
         this.color = color;
     }
-    public int getDbId() {return dbId;}
-    public void setDbId(int dbId) {
-        this.dbId = dbId;
+    public int getId() {return id;}
+    public void setId(int id) {
+        this.id = id;
     }
 
 
@@ -50,44 +51,44 @@ public abstract class AbstractAnimal {
 
 
     //Конструктор задан здесь для того, чтоб указать наследникам "как надо".
-    protected AbstractAnimal(String name, int age, float weight, String color, int dbId) {
+    protected AbstractAnimal(String name, int age, float weight, String color, int id) {
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.color = color;
-        this.dbId = dbId;
+        this.id = id;
     }
 
     Funcs miscFuncs = new Funcs();
+    Templates templates = new Templates();
+
     //переопределяем метод toString
     @Override
     public String toString() {
 
         return "%s -- Привет! меня зовут %s, мне %d %s, я вешу %s кг, мой цвет - %s. "
-                .formatted(dbId, name, age, miscFuncs.agePostfix(age),
-                        miscFuncs.floatTemplate(weight), color);
+                .formatted(id, name, age, miscFuncs.agePostfix(age),
+                        templates.floatTemplate(weight), color);
     }
 
-    public String toTableTr(String highlightColumn) {
+
+
+    public String toTableTr(String highlightColumn)  {
+
         String type = this.getClass().getSimpleName();
         String highlightTemplate = "\u001B[36m%s\u001B[0m";
 
-        //LinkedHashMap потому что сохраняет порядок, в котором добавлялись элементы в отличие от HashMap
-        Map<String,String> columns = new LinkedHashMap<>();
-        columns.put("id", "%-5s");
-        columns.put("type", "%-8s");
-        columns.put("name", "%-25s");
-        columns.put("age", "%-10s");
-        columns.put("weight", "%-10s");
-        columns.put("color", "%-10s");
+        LinkedHashMap<String, String> columns = new Templates().tableTemplate();
+
         columns.forEach((key, value) -> {
             if (key.equals(highlightColumn))
                 columns.replace(key, highlightTemplate.formatted(value));
         });
 
-        String template = String.join(" | ", columns.values());
-        return String.format(template,
-                dbId, type, name, age, miscFuncs.floatTemplate(weight), color);
+        return String.format(String.join(" | ", columns.values()),
+                id, type, name, age, templates.floatTemplate(weight), color
+        );
+
 
     }
 

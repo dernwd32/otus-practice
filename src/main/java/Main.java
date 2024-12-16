@@ -1,9 +1,9 @@
 import animals.AnimalList;
 import animals.AnimalTools;
-import tools.Funcs;
+import misc.Funcs;
 import data.MainMenuData;
 import db.tables.AnimalTable;
-import tools.Loader;
+import misc.Loader;
 
 import java.sql.SQLException;
 import java.util.Arrays;

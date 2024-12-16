@@ -1,4 +1,4 @@
-package tools;
+package misc;
 
 public class Loader {
     public void loader(int rLines){
