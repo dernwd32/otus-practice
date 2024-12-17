@@ -1,6 +1,5 @@
 package animals;
 
-import db.MySQLConnect;
 import misc.Funcs;
 import data.AnimalTypesData;
 import data.SearchFilterData;
@@ -212,16 +211,23 @@ public class AnimalTools {
         searchValue = consoleValue.nextLine().trim();
 
         //выбор типа поиска
+        String[] comparators = {"=", "<>", "<=", "<", ">", ">=", "between", "like"};
         for (;;) {
-            String[] comparators = {"=", "<>", "<=", "<", ">", ">=", "between", "like"};
-            System.out.println("\u001b[36;1mВведите оператор сравнения ("
+
+            System.out.println("\u001b[36;1mВыберите оператор сравнения:\u001B[0m ("
                     + String.join(", ", comparators)
-                    + "):\u001B[0m \n"
+                    + ") \n"
                     + "\t \u001b[3m(вернуться в главное меню: \u001b[1mcancel\u001B[0m)");
             Scanner console = new Scanner(System.in);
             searchType = console.nextLine().trim();
+
+            //проверяем корректность введённого оператора сравнения
             if (Arrays.stream(comparators).toList().contains(searchType.toLowerCase())) {
+
+                //дефолтная строка для лайк
                 searchString = searchField + " " + searchType + " '%" + searchValue + "%'";
+
+                //корректируем синтаксис для between
                 if (searchType.equalsIgnoreCase("between")) {
                     if (searchValue.trim().toLowerCase().matches("^\\d+ and \\d+$"))
                         searchString = searchString.replace("'%", "").replace("%'", "");
@@ -232,7 +238,9 @@ public class AnimalTools {
                     }
 
                 }
-                if (!searchType.equalsIgnoreCase("like"))
+
+                //корректируем синтаксис для всего кроме like и between
+                else if (!searchType.equalsIgnoreCase("like"))
                     searchString = searchString.replace("%", "");
 
                 break;
@@ -242,7 +250,8 @@ public class AnimalTools {
 
         System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + searchString + "\u001B[0m");
 
-        try (ResultSet foundResultSet =animalTable.selectTemplate(null, new String[]{searchString})
+        //ищем соответствия в базе
+        try (ResultSet foundResultSet = animalTable.selectTemplate(null, new String[]{searchString})
         ) {
             while (foundResultSet.next()) {
                 Map<String, Object> animalValues = new HashMap<>();
@@ -255,7 +264,7 @@ public class AnimalTools {
 
                 String type = animalValues.get("type").toString();
 
-                //создаём экземпляр дочернего класса через фабрику
+                //создаём найденный экземпляр через фабрику
                 AbstractAnimal createdAnimal = animalFactory.create(
                         AnimalTypesData.valueOf(type.toUpperCase()),
                         animalValues.get("name").toString(),
@@ -264,9 +273,11 @@ public class AnimalTools {
                         animalValues.get("color").toString(),
                         Integer.parseInt(animalValues.get("id").toString())
                 );
+                //добавляем созданный экземпляр в поисковый список
                 animalList.setListOfFoundAnimals(createdAnimal);
             }
         }
+        //печатаем поисковый список в виде таблицы
         animalList.printTableListAnimals(animalList.getListOfFoundAnimals(), searchField);
 
     }

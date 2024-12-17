@@ -32,8 +32,6 @@ public class MySQLConnect implements IDBConnect {
 
     }
 
-
-
     @Override
     public void execute(String sqlRequest) {
         open();
