@@ -187,7 +187,7 @@ public class AnimalTools {
                 .map(option -> (option.name().toLowerCase()))
                 .toList();
 
-        String searchField, searchValue, searchType, searchString, descr;
+        String searchField, searchValue, searchType, searchString;
 
         //выбор поля
         for(;;) {
@@ -227,9 +227,10 @@ public class AnimalTools {
                 //дефолтная строка для лайк
                 searchString = searchField + " " + searchType + " '%" + searchValue + "%'";
 
-                //корректируем синтаксис для between
                 if (searchType.equalsIgnoreCase("between")) {
+                    //проверяем, чтоб ввод не ломал запрос
                     if (searchValue.trim().toLowerCase().matches("^\\d+ and \\d+$"))
+                        //корректируем синтаксис для between
                         searchString = searchString.replace("'%", "").replace("%'", "");
                     else {
                         System.out.println("Значение поиска для оператора between " +
@@ -248,10 +249,10 @@ public class AnimalTools {
             else System.out.println("Выбран некорректный оператор сравнения!");
         }
 
-        System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + searchString + "\u001B[0m");
+        System.out.println("\u001B[33mПоиск по полю " + searchString + "\u001B[0m");
 
         //ищем соответствия в базе
-        try (ResultSet foundResultSet = animalTable.selectTemplate(null, new String[]{searchString})
+        try (ResultSet foundResultSet = animalTable.selectTemplate(null, searchString)
         ) {
             while (foundResultSet.next()) {
                 Map<String, Object> animalValues = new HashMap<>();

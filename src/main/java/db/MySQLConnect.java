@@ -9,7 +9,7 @@ public class MySQLConnect implements IDBConnect {
     private static Statement statement = null;
     //считываем настройки подключения из файла
     private final Settings settings = new Settings();
-    private final Map<String,String> confData = settings.getSettings();
+    private final Map<String,String> dbSettings = settings.getDBSettings();
 
     //открытие подключения к бд
     private void open(){
@@ -18,9 +18,9 @@ public class MySQLConnect implements IDBConnect {
         try {
             if (connection == null) {
                 connection = DriverManager.getConnection(
-                        confData.get("url"),
-                        confData.get("username"),
-                        confData.get("password")
+                        dbSettings.get("url"),
+                        dbSettings.get("username"),
+                        dbSettings.get("password")
                 );
             }
             if (statement == null) {

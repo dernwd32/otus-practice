@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class Settings {
-    public Map<String,String> getSettings() {
+    public Map<String,String> getDBSettings() {
 
         Properties properties = new Properties();
         Map<String,String> prop = new HashMap<>();

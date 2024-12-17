@@ -4,6 +4,7 @@ import db.IDBConnect;
 import db.MySQLConnect;
 
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.List;
 
 abstract class AbstractTable implements ITable{
@@ -42,6 +43,7 @@ abstract class AbstractTable implements ITable{
     //String[] columns - какие колонки выводить
     //String... predicates - массив с условиями
     public ResultSet selectTemplate(String[] columns, String... predicates ) {
+        //String... predicates -> можно передавать произвольное количество переменных или массив с переменными
 
         String requestColumns, requestPredicates;
 
