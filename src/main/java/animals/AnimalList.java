@@ -38,12 +38,13 @@ public class AnimalList {
     public void printTableListAnimals(ArrayList<AbstractAnimal> listAn, String highlightColumn) {
 
         LinkedHashMap<String,String> columns = new Templates().tableTemplate();
+        int tableWidth = 68;
 
         String th = String.format(
                         String.join(" | ", columns.values()) , //из значений Map собираем шаблон
                         columns.keySet().toArray() //а из ключей собираем массив аргументов для .format
                      )
-                + "\n" + "=".repeat(68);
+                + "\n" + "=".repeat(tableWidth);
 
         if (!Objects.isNull(listAn)) {
             if (listAn.isEmpty()) System.out.println("Список животных пуст.");
@@ -51,7 +52,7 @@ public class AnimalList {
                 System.out.println("\u001b[1m" + th + "\u001B[0m");
                 listAn.forEach(thisAnimal -> System.out.println(
                                 thisAnimal.toTableTr(highlightColumn)
-                 + "\n" + "-".repeat(68))
+                 + "\n" + "-".repeat(tableWidth))
                 );
             }
         }
