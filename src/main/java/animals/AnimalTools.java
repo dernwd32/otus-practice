@@ -6,9 +6,7 @@ import data.AnimalTypesData;
 import data.SearchFilterData;
 import db.tables.AnimalTable;
 import factory.AnimalFactory;
-import misc.Loader;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -86,7 +84,6 @@ public class AnimalTools {
     }
 
     public void addAnimal() {
-        Loader loader = new Loader();
         //создаём экземпляр фабрики
         AnimalFactory animalFactory = new AnimalFactory();
 
@@ -113,9 +110,7 @@ public class AnimalTools {
 
         if (createdAnimal != null) {
             //пишем в базу
-            loader.loader(0);
             animalTable.insert(createdAnimal, type);
-            loader.loader(1);
             System.out.println("Животное типа " + type
                     + " успешно порождено. И сказало оно: ");
             createdAnimal.say();
@@ -131,7 +126,6 @@ public class AnimalTools {
         AnimalTable animalTable = new AnimalTable();
 
         Funcs miscFuncs = new Funcs();
-        Loader loader = new Loader();
 
 
        // boolean existsId = false;
@@ -145,12 +139,9 @@ public class AnimalTools {
 
             if (input == null) break; //выход в главное меню через 'cancel'
 
-            loader.loader(0);
-
             try (ResultSet animalById = animalTable.selectWhereId(Integer.parseInt(input))) {
                 //проверяем наличие такого id в базе
                 if (animalById.next()) {
-                    loader.loader(3);
 
                     System.out.println( "\u001B[33mВыбранная для изменения запись: \u001b[3m"
                             + miscFuncs.firstLetterCapitalize(animalById.getString("type")) + "#"
@@ -176,7 +167,6 @@ public class AnimalTools {
 
                    break;
                 } else {
-                    loader.loader(1);
                     System.out.println("Несуществующий id.");
                 }
 
@@ -192,7 +182,6 @@ public class AnimalTools {
         AnimalTable animalTable = new AnimalTable();
         AnimalList animalList = new AnimalList();
         AnimalFactory animalFactory = new AnimalFactory();
-        Loader loader = new Loader();
 
         List<String> listOptions = Arrays.stream(
                         SearchFilterData.values())
@@ -252,11 +241,9 @@ public class AnimalTools {
         }
 
         System.out.println("\u001B[33mПоиск по полю " + searchField + " со значением " + searchString + "\u001B[0m");
-        loader.loader(0);
+
         try (ResultSet foundResultSet =animalTable.selectTemplate(null, new String[]{searchString})
         ) {
-            loader.loader(1);
-
             while (foundResultSet.next()) {
                 Map<String, Object> animalValues = new HashMap<>();
                 animalValues.put("type", foundResultSet.getString("type"));
@@ -288,7 +275,6 @@ public class AnimalTools {
         //Создаём экземпляр таблицы животных для выполнения запросов к ней
         AnimalTable animalTable = new AnimalTable();
         Funcs miscFuncs = new Funcs();
-        Loader loader = new Loader();
 
         String input = miscFuncs.inputWithRegexValidate(
                 "^[0-9 ,]+$",
@@ -300,8 +286,6 @@ public class AnimalTools {
         String[] ids = input.split(",");
 
         StringBuilder deletedList = new StringBuilder();
-
-        loader.loader(0);
 
         Arrays.stream(ids)
                 .map(key -> key.trim()) //собираем со срезанными пробелами
@@ -326,7 +310,6 @@ public class AnimalTools {
                         throw new RuntimeException(e);
                     }
                 });
-        loader.loader(1);
         System.out.print(deletedList);
 
     }

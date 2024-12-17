@@ -23,7 +23,6 @@ public class Main {
         AnimalTools animalTools = new AnimalTools();
         MySQLConnect mySQLConnect = new MySQLConnect();
 
-        Funcs miscFuncs = new Funcs();
         Loader loader = new Loader();
 
 
