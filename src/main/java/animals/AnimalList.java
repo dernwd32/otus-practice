@@ -25,11 +25,9 @@ public class AnimalList {
     public void printListAnimals() {
 
         if (listAnimals.isEmpty()) System.out.println("Список животных пуст.");
-        else listAnimals.forEach(thisAnimal -> {
-                //чуть-чуть рефлексии для красивого вывода типа животного
-                System.out.print(thisAnimal.getClass().getSimpleName() + "#");
-                System.out.println(thisAnimal); //.toString() не нужен, вызывается по умолчанию
-            });
+        else listAnimals.forEach(thisAnimal ->
+                System.out.println(thisAnimal.getClass().getSimpleName() + "#" + thisAnimal)
+            ); //.toString() подставляется само
 
     }
 
@@ -45,16 +43,15 @@ public class AnimalList {
                         String.join(" | ", columns.values()) , //из значений Map собираем шаблон
                         columns.keySet().toArray() //а из ключей собираем массив аргументов для .format
                      )
-                + "\n"
-                + "---------------------------------------------------------------------";
+                + "\n" + "=".repeat(68);
 
         if (!Objects.isNull(listAn)) {
             if (listAn.isEmpty()) System.out.println("Список животных пуст.");
             else {
-                System.out.println(th);
+                System.out.println("\u001b[1m" + th + "\u001B[0m");
                 listAn.forEach(thisAnimal -> System.out.println(
                                 thisAnimal.toTableTr(highlightColumn)
-                        )
+                 + "\n" + "-".repeat(68))
                 );
             }
         }
