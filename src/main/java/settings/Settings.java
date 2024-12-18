@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class Settings {
+public class Settings implements ISettings {
+    @Override
     public Map<String,String> getDBSettings() {
 
         Properties properties = new Properties();
@@ -20,7 +21,7 @@ public class Settings {
             throw new RuntimeException(e);
         }
 
-        properties.stringPropertyNames().forEach(key ->  prop.put(key, properties.getProperty(key)) );
+        properties.stringPropertyNames().forEach(key -> prop.put(key, properties.getProperty(key)) );
 
         return prop;
     }
