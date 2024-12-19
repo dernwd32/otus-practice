@@ -19,6 +19,7 @@ public interface ITable {
     ResultSet selectAll();
     ResultSet selectWhereId(int id);
     ResultSet selectQ(String query);
+    ResultSet selectTemplate(String[] columns, String... predicates);
 
     void deleteWhereId(int id);
 

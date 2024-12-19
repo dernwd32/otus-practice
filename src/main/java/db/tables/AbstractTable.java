@@ -4,7 +4,6 @@ import db.IDBConnect;
 import db.MySQLConnect;
 
 import java.sql.ResultSet;
-import java.util.Arrays;
 import java.util.List;
 
 abstract class AbstractTable implements ITable{
@@ -19,12 +18,12 @@ abstract class AbstractTable implements ITable{
     @Override
     public void create(List<String> columns) {
         drop();
-        dbConnect.execute(String.format("CREATE TABLE %s(%s);", tableName, String.join(",", columns)));
+        dbConnect.execute(String.format("CREATE TABLE IF NOT EXISTS %s(%s);", tableName, String.join(",", columns)));
     }
 
     @Override
     public void drop() {
-        dbConnect.execute(String.format("DROP TABLE  if exists %s;", tableName));
+        dbConnect.execute(String.format("DROP TABLE  IF EXISTS %s;", tableName));
     }
 
     @Override
@@ -41,9 +40,10 @@ abstract class AbstractTable implements ITable{
     }
 
     //String[] columns - какие колонки выводить
-    //String... predicates - массив с условиями
-    public ResultSet selectTemplate(String[] columns, String... predicates ) {
-        //String... predicates -> можно передавать произвольное количество переменных или массив с переменными
+    //String... predicates - по каким условиям, можно передавать произвольное количество переменных или массив с переменными
+    @Override
+    public ResultSet selectTemplate(String[] columns, String... predicates) {
+
 
         String requestColumns, requestPredicates;
 
