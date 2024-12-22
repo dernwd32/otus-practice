@@ -77,8 +77,6 @@ public class Main {
 
             } catch (IllegalStateException e) {
                 System.out.println("Некорректный выбор.");
-            } finally {
-                mySQLConnect.close();
             }
 
 

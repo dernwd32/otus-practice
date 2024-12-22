@@ -255,24 +255,15 @@ public class AnimalTools {
         try (ResultSet foundResultSet = animalTable.selectTemplate(null, searchString)
         ) {
             while (foundResultSet.next()) {
-                Map<String, Object> animalValues = new HashMap<>();
-                animalValues.put("type", foundResultSet.getString("type"));
-                animalValues.put("name", foundResultSet.getString("name"));
-                animalValues.put("age", foundResultSet.getInt("age"));
-                animalValues.put("weight", foundResultSet.getFloat("weight"));
-                animalValues.put("color", foundResultSet.getString("color"));
-                animalValues.put("id", foundResultSet.getInt("id"));
-
-                String type = animalValues.get("type").toString();
 
                 //создаём найденный экземпляр через фабрику
                 AbstractAnimal createdAnimal = animalFactory.create(
-                        AnimalTypesData.valueOf(type.toUpperCase()),
-                        animalValues.get("name").toString(),
-                        Integer.parseInt(animalValues.get("age").toString()),
-                        Float.parseFloat(animalValues.get("weight").toString()),
-                        animalValues.get("color").toString(),
-                        Integer.parseInt(animalValues.get("id").toString())
+                        AnimalTypesData.valueOf(foundResultSet.getString("type")),
+                        foundResultSet.getString("name"),
+                        foundResultSet.getInt("age"),
+                        foundResultSet.getFloat("weight"),
+                        foundResultSet.getString("color"),
+                        foundResultSet.getInt("id")
                 );
                 //добавляем созданный экземпляр в поисковый список
                 animalList.setListOfFoundAnimals(createdAnimal);
